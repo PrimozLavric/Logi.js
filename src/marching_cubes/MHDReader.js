@@ -2,7 +2,7 @@
  * Created by Primoz on 8.6.2016.
  */
 
-M3D.MHDReader = class {
+LOGI.MHDReader = class {
 
     /**
      * Instantiates MHD reader with the loading callback

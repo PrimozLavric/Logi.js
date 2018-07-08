@@ -2,7 +2,7 @@
  * Created by Primoz on 18.5.2016.
  */
 
-M3D.PointLight = class extends M3D.Light {
+LOGI.PointLight = class extends LOGI.Light {
 
     constructor (color, intensity, distance, decay) {
         super(color, intensity);
@@ -47,7 +47,7 @@ M3D.PointLight = class extends M3D.Light {
 
     static fromJson(data) {
 
-        var light = new M3D.PointLight(data.color, data.intensity, data.distance, data.decay);
+        var light = new LOGI.PointLight(data.color, data.intensity, data.distance, data.decay);
 
         // Light fromJson
         light = super.fromJson(data, light);

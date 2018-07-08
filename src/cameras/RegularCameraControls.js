@@ -2,7 +2,7 @@
  * Created by Primoz Lavric on 27-Mar-17.
  */
 
-M3D.RegularCameraControls = class {
+LOGI.RegularCameraControls = class {
 
     constructor(camera) {
         // Keyboard action

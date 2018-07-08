@@ -7,7 +7,7 @@
 const singleton = Symbol();
 const singletonEnforcer = Symbol();
 
-var M3D = {
+var LOGI = {
 	revision: 1,
 
 	// Material side constants

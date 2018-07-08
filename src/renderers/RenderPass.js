@@ -2,17 +2,17 @@
  * Created by Primoz on 26-Nov-16.
  */
 
-M3D.RenderPass = class {
+LOGI.RenderPass = class {
 
     constructor(type, initialize, preprocess, target, viewport, outDepthID = null, outTextures = []) {
 
         /**
          * Can be either:
-         * M3D.RenderPass.BASIC - Requires a preprocess function to return array [M3D.Scene, M3D.Camera]. Performs basic render pass
+         * LOGI.RenderPass.BASIC - Requires a preprocess function to return array [LOGI.Scene, LOGI.Camera]. Performs basic render pass
          *                        with the given scene and camera rendering to either Texture or Screen (defined by the target).
          *
-         * M3D.RenderPass.TEXTURE_MERGE - Requires a preprocess function to return array [M3D.CustomShaderMaterial, [M3D.Texture,..]].
-         *                                It then uses the given M3D.CustomShaderMaterial to merge the given textures using (rendering is done on quad).
+         * LOGI.RenderPass.TEXTURE_MERGE - Requires a preprocess function to return array [LOGI.CustomShaderMaterial, [LOGI.Texture,..]].
+         *                                It then uses the given LOGI.CustomShaderMaterial to merge the given textures using (rendering is done on quad).
          */
         this._type = type;
 
@@ -28,7 +28,7 @@ M3D.RenderPass = class {
 
         /**
          * This function is called before the rendering with two parameters (PreviousRPTextures, PreviousRPData). And it should return
-         * either an object {scene: M3D.Scene, camera: M3D.Camera} (for RenderPass.BASIC) or {material: M3D.CustomShaderMaterial, textures: [M3D.Texture,..]} (for RenderPass.TEXTURE_MERGE).
+         * either an object {scene: LOGI.Scene, camera: LOGI.Camera} (for RenderPass.BASIC) or {material: LOGI.CustomShaderMaterial, textures: [LOGI.Texture,..]} (for RenderPass.TEXTURE_MERGE).
          */
         this._preprocess = preprocess;
 
@@ -54,7 +54,7 @@ M3D.RenderPass = class {
          *          id: string,
          *          textureConfig: {wrapS, WrapT, minFilter, magFilter, internalFormat, format, type}
          *      }
-         * For the texture config parameters refer to M3D.Texture class and
+         * For the texture config parameters refer to LOGI.Texture class and
          * https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D
          * for format and type explanation.
          */
@@ -100,14 +100,14 @@ M3D.RenderPass = class {
         this._viewport = value;
     }
     set outDepthID(value) {
-        if (this._type === M3D.RenderPass.SCREEN) {
+        if (this._type === LOGI.RenderPass.SCREEN) {
             console.warn("Warning: Setting output depth texture to RenderPass that renders to screen!")
         }
 
         this._outDepthID = value;
     }
     set outTextures(value) {
-        if (this._type === M3D.RenderPass.SCREEN) {
+        if (this._type === LOGI.RenderPass.SCREEN) {
             console.warn("Warning: Setting output color textures to RenderPass that renders to screen!")
         }
 
@@ -116,36 +116,36 @@ M3D.RenderPass = class {
 };
 
 // Render pass types
-M3D.RenderPass.BASIC = 0;
-M3D.RenderPass.TEXTURE_MERGE = 1;
+LOGI.RenderPass.BASIC = 0;
+LOGI.RenderPass.TEXTURE_MERGE = 1;
 
 // Render pass target
-M3D.RenderPass.TEXTURE = 2;
-M3D.RenderPass.SCREEN = 3;
+LOGI.RenderPass.TEXTURE = 2;
+LOGI.RenderPass.SCREEN = 3;
 
-M3D.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG = {wrapS: M3D.Texture.ClampToEdgeWrapping,
-                                                wrapT: M3D.Texture.ClampToEdgeWrapping,
-                                                minFilter: M3D.Texture.LinearFilter,
-                                                magFilter: M3D.Texture.LinearFilter,
-                                                internalFormat: M3D.Texture.RGBA,
-                                                format: M3D.Texture.RGBA,
-                                                type: M3D.Texture.UNSIGNED_BYTE};
-
-
-M3D.RenderPass.FLOAT_RGB_TEXTURE_CONFIG = {wrapS: M3D.Texture.ClampToEdgeWrapping,
-    wrapT: M3D.Texture.ClampToEdgeWrapping,
-    minFilter: M3D.Texture.LinearFilter,
-    magFilter: M3D.Texture.LinearFilter,
-    internalFormat: M3D.Texture.RGBA16F,
-    format: M3D.Texture.RGBA,
-    type: M3D.Texture.HALF_FLOAT};
+LOGI.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG = {wrapS: LOGI.Texture.ClampToEdgeWrapping,
+                                                wrapT: LOGI.Texture.ClampToEdgeWrapping,
+                                                minFilter: LOGI.Texture.LinearFilter,
+                                                magFilter: LOGI.Texture.LinearFilter,
+                                                internalFormat: LOGI.Texture.RGBA,
+                                                format: LOGI.Texture.RGBA,
+                                                type: LOGI.Texture.UNSIGNED_BYTE};
 
 
+LOGI.RenderPass.FLOAT_RGB_TEXTURE_CONFIG = {wrapS: LOGI.Texture.ClampToEdgeWrapping,
+    wrapT: LOGI.Texture.ClampToEdgeWrapping,
+    minFilter: LOGI.Texture.LinearFilter,
+    magFilter: LOGI.Texture.LinearFilter,
+    internalFormat: LOGI.Texture.RGBA16F,
+    format: LOGI.Texture.RGBA,
+    type: LOGI.Texture.HALF_FLOAT};
 
-M3D.RenderPass.DEFAULT_RGB_TEXTURE_CONFIG = {wrapS: M3D.Texture.ClampToEdgeWrapping,
-                                                wrapT: M3D.Texture.ClampToEdgeWrapping,
-                                                minFilter: M3D.Texture.LinearFilter,
-                                                magFilter: M3D.Texture.LinearFilter,
-                                                internalFormat: M3D.Texture.RGB,
-                                                format: M3D.Texture.RGB,
-                                                type: M3D.Texture.UNSIGNED_BYTE};
+
+
+LOGI.RenderPass.DEFAULT_RGB_TEXTURE_CONFIG = {wrapS: LOGI.Texture.ClampToEdgeWrapping,
+                                                wrapT: LOGI.Texture.ClampToEdgeWrapping,
+                                                minFilter: LOGI.Texture.LinearFilter,
+                                                magFilter: LOGI.Texture.LinearFilter,
+                                                internalFormat: LOGI.Texture.RGB,
+                                                format: LOGI.Texture.RGB,
+                                                type: LOGI.Texture.UNSIGNED_BYTE};

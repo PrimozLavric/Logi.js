@@ -1,7 +1,7 @@
 /**
  * Created by primoz on 14.5.2016.
  */
-M3D.ShaderLoader = class {
+LOGI.ShaderLoader = class {
 
     /**
      * Creates new ShaderLoader object with the given LoadingManager. If the LoadingManager is not defined..
@@ -9,8 +9,8 @@ M3D.ShaderLoader = class {
      * @param xhrManager
      * @param urls
      */
-    constructor(xhrManager = new M3D.LoadingManager(), urls = []) {
-        this._xhrLoader = new M3D.XHRLoader(xhrManager);
+    constructor(xhrManager = new LOGI.LoadingManager(), urls = []) {
+        this._xhrLoader = new LOGI.XHRLoader(xhrManager);
 
         // Array of URL-s whose version should be retrieved
         this._pending_urls = [];

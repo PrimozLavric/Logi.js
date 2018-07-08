@@ -2,7 +2,7 @@
  * Created by Primoz on 18. 06. 2016.
  */
 
-M3D.ScenePublisher = class {
+LOGI.ScenePublisher = class {
     
     constructor(username, rootObjects) {
 
@@ -161,16 +161,16 @@ M3D.ScenePublisher = class {
             }
         };
 
-        this._cameraChangeListener = new M3D.UpdateListener(onCameraUpdate);
-        this._dataChangeListener = new M3D.UpdateListener(onObjectUpdate, onHierarchyUpdate, onMaterialUpdate, onGeometryUpdate);
+        this._cameraChangeListener = new LOGI.UpdateListener(onCameraUpdate);
+        this._dataChangeListener = new LOGI.UpdateListener(onObjectUpdate, onHierarchyUpdate, onMaterialUpdate, onGeometryUpdate);
 
         // Subscribers data
         this._subscribersCameras = {};
         this._subscriberOnCameraChange = null;
 
         // Fetch socket manager reference and add a new socket subscriber
-        this._socketManager = M3D.SocketManager.instance;
-        this._socketSubscriber = new M3D.SocketSubscriber();
+        this._socketManager = LOGI.SocketManager.instance;
+        this._socketSubscriber = new LOGI.SocketSubscriber();
         this._socketManager.addSocketSubscriber(this._socketSubscriber);
 
         // If the connection was not jet established initiate the connecting
@@ -275,7 +275,7 @@ M3D.ScenePublisher = class {
                         self._synchronizedObjects.delete(child._uuid);
 
                         // If the object is instance of mesh also delete its material or geometry
-                        if (child instanceof M3D.Mesh) {
+                        if (child instanceof LOGI.Mesh) {
                             let syncGeometry = self._synchronizedObjects.get(child.geometry._uuid);
                             if (--syncGeometry.usages <= 0) {
                                 self._scheduledGeometriesUpdates[child.geometry._uuid] = { remove: true };
@@ -430,7 +430,7 @@ M3D.ScenePublisher = class {
 
                 // Create cameras
                 for (let uuid in userCamerasList) {
-                    let newCamera = M3D[userCamerasList[uuid].type].fromJson(userCamerasList[uuid]);
+                    let newCamera = LOGI[userCamerasList[uuid].type].fromJson(userCamerasList[uuid]);
                     self._subscribersCameras[request.userId].list.push(newCamera);
 
                     // Notify subscriber

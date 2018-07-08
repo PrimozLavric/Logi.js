@@ -2,7 +2,7 @@
  * Created by Ziga on 25.3.2016.
  */
 
-M3D.Object3D = class {
+LOGI.Object3D = class {
 
 	constructor() {
 
@@ -341,7 +341,7 @@ M3D.Object3D = class {
 
         // Fetch bounding spheres of all of the children
         this.traverse(function (object) {
-            if (object instanceof M3D.Mesh && object.geometry != null) {
+            if (object instanceof LOGI.Mesh && object.geometry != null) {
                 let bSphere = object.geometry.boundingSphere;
 
                 if (!isNaN(bSphere.radius) && bSphere.radius > 0) {
@@ -351,7 +351,7 @@ M3D.Object3D = class {
         });
 
         if (spheres.length > 0) {
-            return M3D.Math.computeSpheresBoundingSphere(spheres);
+            return LOGI.Math.computeSpheresBoundingSphere(spheres);
         }
         else {
             return new THREE.Sphere();
@@ -389,9 +389,9 @@ M3D.Object3D = class {
 
     static fromJson(data, object) {
 
-        // Object is undefined if M3D.Object3D was not extended
+        // Object is undefined if LOGI.Object3D was not extended
         if (!object) {
-            var object = new M3D.Object3D();
+            var object = new LOGI.Object3D();
         }
 
         // Set uuid
@@ -429,7 +429,7 @@ M3D.Object3D = class {
                     var material = materials[obj.materialUuid];
 
                     if (geometry) {
-                        geometry = M3D.Geometry.fromJson(geometry);
+                        geometry = LOGI.Geometry.fromJson(geometry);
                     }
                     else {
                         geometry = undefined;
@@ -439,13 +439,13 @@ M3D.Object3D = class {
                     if (material) {
                         switch (material.type) {
                             case "Material":
-                                material = M3D.Material.fromJson(material);
+                                material = LOGI.Material.fromJson(material);
                                 break;
                             case "MeshBasicMaterial":
-                                material = M3D.MeshBasicMaterial.fromJson(material);
+                                material = LOGI.MeshBasicMaterial.fromJson(material);
                                 break;
                             case "MeshPhongMaterial":
-                                material = M3D.MeshPhongMaterial.fromJson(material);
+                                material = LOGI.MeshPhongMaterial.fromJson(material);
                                 break;
                             default:
                                 material = undefined;
@@ -456,10 +456,10 @@ M3D.Object3D = class {
                         console.warn("Could not find material for the mesh: " + obj.uuid);
                     }
 
-                    rebuiltObjects[obj.uuid] = M3D.Mesh.fromJson(obj, geometry, material);
+                    rebuiltObjects[obj.uuid] = LOGI.Mesh.fromJson(obj, geometry, material);
                     break;
                 default:
-                    rebuiltObjects[obj.uuid] = M3D[obj.type].fromJson(obj);
+                    rebuiltObjects[obj.uuid] = LOGI[obj.type].fromJson(obj);
                     break;
             }
         }

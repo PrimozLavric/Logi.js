@@ -2,7 +2,7 @@
  * Created by Primoz on 25. 07. 2016.
  */
 
-M3D.GLTextureManager = class {
+LOGI.GLTextureManager = class {
 
     /**
      * @param {WebGLRenderingContext} gl WebGL rendering context used for buffer allocation.
@@ -120,37 +120,37 @@ M3D.GLTextureManager = class {
     // region CONSTANT CONVERSION
     _formatToGL(format) {
         switch (format) {
-            case M3D.Texture.RGBA:
+            case LOGI.Texture.RGBA:
                 return this._gl.RGBA;
                 break;
-            case M3D.Texture.RGB:
+            case LOGI.Texture.RGB:
                 return this._gl.RGB;
                 break;
-            case M3D.Texture.ALPHA:
+            case LOGI.Texture.ALPHA:
                 return this._gl.ALPHA;
                 break;
-            case M3D.Texture.LUMINANCE:
+            case LOGI.Texture.LUMINANCE:
                 return this._gl.LUMINANCE;
                 break;
-            case M3D.Texture.LUMINANCE_ALPHA:
+            case LOGI.Texture.LUMINANCE_ALPHA:
                 return this._gl.LUMINANCE_ALPHA;
                 break;
-            case M3D.Texture.DEPTH_COMPONENT:
+            case LOGI.Texture.DEPTH_COMPONENT:
                 return this._gl.DEPTH_COMPONENT;
                 break;
-            case M3D.Texture.DEPTH_COMPONENT24:
+            case LOGI.Texture.DEPTH_COMPONENT24:
                 return this._gl.DEPTH_COMPONENT24;
                 break;
-            case M3D.Texture.RGB16F:
+            case LOGI.Texture.RGB16F:
                 return this._gl.RGB16F;
                 break;
-            case M3D.Texture.RGB32F:
+            case LOGI.Texture.RGB32F:
                 return this._gl.RGB32F;
                 break;
-            case M3D.Texture.RGBA16F:
+            case LOGI.Texture.RGBA16F:
                 return this._gl.RGBA16F;
                 break;
-            case M3D.Texture.RGBA32F:
+            case LOGI.Texture.RGBA32F:
                 return this._gl.RGBA32F;
                 break;
             default:
@@ -163,10 +163,10 @@ M3D.GLTextureManager = class {
 
     _magFilterToGL(filter) {
         switch (filter) {
-            case M3D.Texture.NearestFilter:
+            case LOGI.Texture.NearestFilter:
                 return this._gl.NEAREST;
                 break;
-            case M3D.Texture.LinearFilter:
+            case LOGI.Texture.LinearFilter:
                 return this._gl.LINEAR;
                 break;
             default:
@@ -178,22 +178,22 @@ M3D.GLTextureManager = class {
 
     _minFilterToGL(filter) {
         switch (filter) {
-            case M3D.Texture.NearestFilter:
+            case LOGI.Texture.NearestFilter:
                 return this._gl.NEAREST;
                 break;
-            case M3D.Texture.LinearFilter:
+            case LOGI.Texture.LinearFilter:
                 return this._gl.LINEAR;
                 break;
-            case M3D.Texture.NearestMipMapNearestFilter:
+            case LOGI.Texture.NearestMipMapNearestFilter:
                 return this._gl.NEAREST_MIPMAP_NEAREST;
                 break;
-            case M3D.Texture.NearestMipMapLinearFilter:
+            case LOGI.Texture.NearestMipMapLinearFilter:
                 return this._gl.NEAREST_MIPMAP_LINEAR;
                 break;
-            case M3D.Texture.LinearMipMapNearestFilter:
+            case LOGI.Texture.LinearMipMapNearestFilter:
                 return this._gl.LINEAR_MIPMAP_NEAREST;
                 break;
-            case M3D.Texture.LinearMipMapLinearFilter:
+            case LOGI.Texture.LinearMipMapLinearFilter:
                 return this._gl.LINEAR_MIPMAP_LINEAR;
                 break;
             default:
@@ -205,13 +205,13 @@ M3D.GLTextureManager = class {
 
     _wrapToGL(wrap) {
         switch (wrap) {
-            case M3D.Texture.RepeatWrapping:
+            case LOGI.Texture.RepeatWrapping:
                 return this._gl.REPEAT;
                 break;
-            case M3D.Texture.ClampToEdgeWrapping:
+            case LOGI.Texture.ClampToEdgeWrapping:
                 return this._gl.CLAMP_TO_EDGE;
                 break;
-            case M3D.Texture.MirroredRepeatWrapping:
+            case LOGI.Texture.MirroredRepeatWrapping:
                 return this._gl.MIRRORED_REPEAT;
                 break;
             default:
@@ -223,22 +223,22 @@ M3D.GLTextureManager = class {
 
     _typeToGL(type) {
         switch (type) {
-            case M3D.Texture.UNSIGNED_BYTE:
+            case LOGI.Texture.UNSIGNED_BYTE:
                 return this._gl.UNSIGNED_BYTE;
                 break;
-            case M3D.Texture.UNSIGNED_INT_24_8:
+            case LOGI.Texture.UNSIGNED_INT_24_8:
                 return this._gl.UNSIGNED_INT_24_8;
                 break;
-            case M3D.Texture.UNSIGNED_SHORT:
+            case LOGI.Texture.UNSIGNED_SHORT:
                 return this._gl.UNSIGNED_SHORT;
                 break;
-            case M3D.Texture.UNSIGNED_INT:
+            case LOGI.Texture.UNSIGNED_INT:
                 return this._gl.UNSIGNED_INT;
                 break;
-            case M3D.Texture.FLOAT:
+            case LOGI.Texture.FLOAT:
                 return this._gl.FLOAT;
                 break;
-            case M3D.Texture.HALF_FLOAT:
+            case LOGI.Texture.HALF_FLOAT:
                 return this._gl.HALF_FLOAT;
                 break;
             default:

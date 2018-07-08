@@ -2,10 +2,10 @@
  * Created by Primoz on 27. 03. 2016.
  */
 
-M3D.Scene = class extends M3D.Object3D {
+LOGI.Scene = class extends LOGI.Object3D {
 
     constructor() {
-        super(M3D.Object3D);
+        super(LOGI.Object3D);
 
         this.type = "Scene";
 
@@ -34,7 +34,7 @@ M3D.Scene = class extends M3D.Object3D {
     }
 
     static fromJson(data) {
-        let scene = new M3D.Scene();
+        let scene = new LOGI.Scene();
 
         // Import Object3D parameters
         scene = super.fromJson(data, scene);

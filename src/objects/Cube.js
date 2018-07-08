@@ -3,15 +3,15 @@
  */
 
 
-M3D.Cube = class extends M3D.Mesh {
+LOGI.Cube = class extends LOGI.Mesh {
     constructor(scale, color) {
 
-        var geometry = new M3D.Geometry();
-        var material = new M3D.MeshBasicMaterial();
+        var geometry = new LOGI.Geometry();
+        var material = new LOGI.MeshBasicMaterial();
         material.color = color;
 
         // Quad vertices
-        geometry.vertices = M3D.Float32Attribute([
+        geometry.vertices = LOGI.Float32Attribute([
             // Front face
             -1.0, -1.0,  1.0,
             1.0, -1.0,  1.0,
@@ -53,7 +53,7 @@ M3D.Cube = class extends M3D.Mesh {
             geometry.vertices.array[i] *= scale;
         }
 
-        geometry.indices = M3D.Uint32Attribute([
+        geometry.indices = LOGI.Uint32Attribute([
             0, 1, 2,      0, 2, 3,    // Front face
             4, 5, 6,      4, 6, 7,    // Back face
             8, 9, 10,     8, 10, 11,  // Top face
@@ -66,7 +66,7 @@ M3D.Cube = class extends M3D.Mesh {
 
 
 
-        // Super M3D.Mesh
+        // Super LOGI.Mesh
         super(geometry, material);
 
         this.type = "Cube";

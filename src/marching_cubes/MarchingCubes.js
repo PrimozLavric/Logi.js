@@ -2,7 +2,7 @@
  * Created by Primoz on 31.5.2016.
  */
 
-M3D.MarchingCubes = class {
+LOGI.MarchingCubes = class {
 
     constructor () {
         this._jobQueue = [];

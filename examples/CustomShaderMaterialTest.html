@@ -12,7 +12,7 @@ FPS: <span id="fps">N/A</span>
 <script src="../libraries/three-math.min.js"></script>
 <script src="lib/jquery.min.js"></script>
 
-<script src="../src/Med3D.js"></script>
+<script src="../src/LOGI.js"></script>
 
 <!-- LOADERS -->
 <script src="../src/loaders/Cache.js"></script>
@@ -81,15 +81,15 @@ FPS: <span id="fps">N/A</span>
     var objects;
 
     // Initialize renderer
-    var renderer = new M3D.MeshRenderer(document.getElementById("canvas"), M3D.WEBGL2);
+    var renderer = new LOGI.MeshRenderer(document.getElementById("canvas"), LOGI.WEBGL2);
 
-    var scene = new M3D.Scene();
+    var scene = new LOGI.Scene();
 
     // Initialize lights and add them to the scene
-    var aLight = new M3D.AmbientLight(new THREE.Color("#222222"), 1);
-    var dLight = new M3D.DirectionalLight(new THREE.Color("#00FF00"), 1);
-    var dLight2 = new M3D.DirectionalLight(new THREE.Color("#FF0000"), 1);
-    var pLight = new M3D.PointLight(new THREE.Color("#0000FF"), 1);
+    var aLight = new LOGI.AmbientLight(new THREE.Color("#222222"), 1);
+    var dLight = new LOGI.DirectionalLight(new THREE.Color("#00FF00"), 1);
+    var dLight2 = new LOGI.DirectionalLight(new THREE.Color("#FF0000"), 1);
+    var pLight = new LOGI.PointLight(new THREE.Color("#0000FF"), 1);
 
     pLight.position = new THREE.Vector3(0, 0, 200);
     dLight.position = new THREE.Vector3(-1, 0, 0);
@@ -101,22 +101,22 @@ FPS: <span id="fps">N/A</span>
     scene.add(pLight);
 
     // Camera initialization
-    var camera = new M3D.PerspectiveCamera(1.483, 16/9, 10, 10000);
+    var camera = new LOGI.PerspectiveCamera(1.483, 16/9, 10, 10000);
     camera.position = new THREE.Vector3(0, 0, 20);
 
     // Set path to shader files
     renderer.addShaderLoaderUrls("../src/shaders");
 
     // Initialize object loader and load the objects
-    var manager = new M3D.LoadingManager();
-    var loader = new M3D.ObjLoader(manager);
+    var manager = new LOGI.LoadingManager();
+    var loader = new LOGI.ObjLoader(manager);
 
 
     // region Setup keyboard
     var keyboardRotation = {x: 0, y: 0, z: 0, reset: function() { this.x = 0; this.y = 0; this.z = 0; }};
     var keyboardTranslation = {x: 0, y: 0, z: 0, reset: function() { this.x = 0; this.y = 0; this.z = 0; }};
 
-    var keyboardInput = M3D.KeyboardInput.instance;
+    var keyboardInput = LOGI.KeyboardInput.instance;
     keyboardInput.addListener(function (pressedKeys) {
         // ROTATIONS
         if (pressedKeys[65]) {  // A
@@ -183,13 +183,13 @@ FPS: <span id="fps">N/A</span>
             // Fetch vertices length * 3
             verticesLength = obj[i].geometry.vertices.array.length;
 
-            displacementBuffer = new M3D.BufferAttribute(new Float32Array(verticesLength), 3);
+            displacementBuffer = new LOGI.BufferAttribute(new Float32Array(verticesLength), 3);
 
             for (var j = 0; j < verticesLength; j++) {
                 displacementBuffer.array[j] = (Math.random() - 0.5) / 20;
             }
 
-            obj[i].material = new M3D.CustomShaderMaterial("testProgram", {"dimFactor": [0.5,1.0,0.5,1.0], "material.diffuse": [1.0, 1.0, 1.0]}, {"displacement": displacementBuffer});
+            obj[i].material = new LOGI.CustomShaderMaterial("testProgram", {"dimFactor": [0.5,1.0,0.5,1.0], "material.diffuse": [1.0, 1.0, 1.0]}, {"displacement": displacementBuffer});
 
             obj[i].geometry.drawWireframe = false;
             scene.add(obj[i]);

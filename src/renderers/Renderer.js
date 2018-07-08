@@ -7,12 +7,12 @@
  * Interface for renderers, implemented by VolumeRenderer, MeshRenderer, etc.
  * @class Renderer
  */
-M3D.Renderer = class {
+LOGI.Renderer = class {
 	// Subclasses perform WebGL initialization, texture allocation, etc.
 	// Renderers can be run offline, without WebGL.
 	constructor(canvas, gl_version) {
         // Create new gl manager with appropriate version
-        this._glManager = new M3D.GLManager(canvas, gl_version);
+        this._glManager = new LOGI.GLManager(canvas, gl_version);
         this._canvas = canvas;
 
         // Retrieve context from gl manager
@@ -25,8 +25,8 @@ M3D.Renderer = class {
         }
 
         // Program management
-        this._glProgramManager = new M3D.GLProgramManager(this._gl);
-        this._shaderLoader = new M3D.ShaderLoader();
+        this._glProgramManager = new LOGI.GLProgramManager(this._gl);
+        this._shaderLoader = new LOGI.ShaderLoader();
 
         this._requiredPrograms = [];
         this._compiledPrograms = new Map();
@@ -44,8 +44,8 @@ M3D.Renderer = class {
 
 	render(scene, camera, renderTarget) {
         // Check if correct object instance was passed as camera
-        if (camera instanceof M3D.Camera === false) {
-            console.error(LOGTAG + "Given camera is not an instance of M3D.Camera");
+        if (camera instanceof LOGI.Camera === false) {
+            console.error(LOGTAG + "Given camera is not an instance of LOGI.Camera");
             return;
         }
 

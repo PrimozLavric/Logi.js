@@ -2,11 +2,11 @@
  * Created by Primoz Lavric on 13-Mar-17.
  */
 
-M3D.OrbitCameraControls = class {
+LOGI.OrbitCameraControls = class {
 
     constructor(camera, orbitCenter) {
 
-        // Holds currently active camera object (M3D.Camera)
+        // Holds currently active camera object (LOGI.Camera)
         this._camera = camera;
 
         // Location of camera focus
@@ -42,7 +42,7 @@ M3D.OrbitCameraControls = class {
         this._rotateSpeed = 1.0;
 
         // Holds current position in spherical coordinates
-        this._spherical = new M3D.Spherical();
+        this._spherical = new LOGI.Spherical();
 
         /** Animation queue
          animation_entry = {
@@ -169,7 +169,7 @@ M3D.OrbitCameraControls = class {
 
 let _animateHandle = (function () {
 
-    let helperSpherical = new M3D.Spherical();
+    let helperSpherical = new LOGI.Spherical();
     let helperCenterOffset = new THREE.Vector3();
 
     let centerOffset = new THREE.Vector3();

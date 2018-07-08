@@ -1,8 +1,8 @@
 
-M3D.MeshPhongMaterial = class extends M3D.Material {
+LOGI.MeshPhongMaterial = class extends LOGI.Material {
 
     constructor() {
-        super(M3D.Material);
+        super(LOGI.Material);
 
         this.type = "MeshPhongMaterial";
 
@@ -93,7 +93,7 @@ M3D.MeshPhongMaterial = class extends M3D.Material {
             flags.push("VERTEX_COLORS");
         }
 
-        return new M3D.MaterialProgramTemplate("phong", flags, values);
+        return new LOGI.MaterialProgramTemplate("phong", flags, values);
     }
 
     toJson() {
@@ -107,7 +107,7 @@ M3D.MeshPhongMaterial = class extends M3D.Material {
     }
 
     static fromJson(obj) {
-        let material = new M3D.MeshPhongMaterial();
+        let material = new LOGI.MeshPhongMaterial();
 
         // Material properties
         material = super.fromJson(obj, material);

@@ -2,11 +2,11 @@
  * Created by Primoz on 3.4.2016.
  */
 
-M3D.Material = class {
+LOGI.Material = class {
 
     constructor() {
 
-        if (new.target === M3D.Material) {
+        if (new.target === LOGI.Material) {
             throw new TypeError("Cannot construct abstract Material class.");
         }
 
@@ -18,9 +18,9 @@ M3D.Material = class {
         this._name = '';
 
         // Defines which of the face sides will be rendered - front, back or both
-        this._side = M3D.FRONT_SIDE;
+        this._side = LOGI.FRONT_SIDE;
 
-        this._depthFunc = M3D.FUNC_LEQUAL;
+        this._depthFunc = LOGI.FUNC_LEQUAL;
         this._depthTest = true;
         this._depthWrite = true;
 
@@ -176,7 +176,7 @@ M3D.Material = class {
 
     static fromJson(obj, material) {
         if (!material) {
-            var material = new M3D.Material();
+            var material = new LOGI.Material();
         }
 
         // Meta

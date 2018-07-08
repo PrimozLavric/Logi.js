@@ -2,9 +2,9 @@
  * Created by Primoz on 26. 06. 2016.
  */
 
-M3D.SUPPRESS_DEFAULT_KEYBOARD_KEYS = [37, 38, 39, 40];
+LOGI.SUPPRESS_DEFAULT_KEYBOARD_KEYS = [37, 38, 39, 40];
 
-M3D.KeyboardInput = class {
+LOGI.KeyboardInput = class {
 
     constructor(enforcer) {
         // Do not allow singleton duplicates
@@ -20,7 +20,7 @@ M3D.KeyboardInput = class {
             self._pressedKeys.add(event.keyCode);
 
             // Disable arrow key default behavior
-            if(M3D.SUPPRESS_DEFAULT_KEYBOARD_KEYS.indexOf(event.keyCode) > -1) {
+            if(LOGI.SUPPRESS_DEFAULT_KEYBOARD_KEYS.indexOf(event.keyCode) > -1) {
                 event.preventDefault();
             }
         });
@@ -62,7 +62,7 @@ M3D.KeyboardInput = class {
 
     static get instance() {
         if (!this[singleton]) {
-            this[singleton] = new M3D.KeyboardInput(singletonEnforcer);
+            this[singleton] = new LOGI.KeyboardInput(singletonEnforcer);
         }
 
         return this[singleton];

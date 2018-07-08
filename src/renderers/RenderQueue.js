@@ -2,7 +2,7 @@
  * Created by Primoz on 26-Nov-16.
  */
 
-M3D.RenderQueue = class {
+LOGI.RenderQueue = class {
 
     constructor(renderer) {
         this._renderer = renderer;
@@ -19,15 +19,15 @@ M3D.RenderQueue = class {
         this._forwardedAdditionalData = {};
 
         // Init merge texture resources
-        this._textureMergeScene = new M3D.Scene();
-        this._textureMergeQuad = new M3D.Quad(new THREE.Vector2(-1, 1), new THREE.Vector2(1, -1), new M3D.MeshBasicMaterial());
+        this._textureMergeScene = new LOGI.Scene();
+        this._textureMergeQuad = new LOGI.Quad(new THREE.Vector2(-1, 1), new THREE.Vector2(1, -1), new LOGI.MeshBasicMaterial());
         this._textureMergeQuad.frustumCulled = false;
-        this._textureMergeCamera = new M3D.OrthographicCamera(-1, 1, 1, -1, 1, 2);
+        this._textureMergeCamera = new LOGI.OrthographicCamera(-1, 1, 1, -1, 1, 2);
 
         this._textureMergeScene.add(this._textureMergeQuad);
 
         // Init render target
-        this._renderTarget = new M3D.RenderTarget(1920, 1080);
+        this._renderTarget = new LOGI.RenderTarget(1920, 1080);
     }
 
     _setupRenderTarget(renderPass) {
@@ -83,7 +83,7 @@ M3D.RenderQueue = class {
             }
             else {
                 // Create new texture
-                let texture = new M3D.Texture(undefined, texConfig.wrapS, texConfig.wrapT, texConfig.minFilter, texConfig.magFilter,
+                let texture = new LOGI.Texture(undefined, texConfig.wrapS, texConfig.wrapT, texConfig.minFilter, texConfig.magFilter,
                     texConfig.internalFormat, texConfig.format, texConfig.type, viewportRP.width, viewportRP.height);
 
                 this._renderTarget.addDrawBuffer(texture);
@@ -117,18 +117,18 @@ M3D.RenderQueue = class {
             }
 
             // Determine the render pass type
-            if (renderPass.type === M3D.RenderPass.BASIC) {
+            if (renderPass.type === LOGI.RenderPass.BASIC) {
                 // This is a BASIC scene rendering render pass
 
                 // Validate preprocess output
-                if (preprocOutput.scene === undefined || !(preprocOutput.scene instanceof M3D.Scene) ||
-                    preprocOutput.camera === undefined || !(preprocOutput.camera instanceof M3D.Camera)) {
+                if (preprocOutput.scene === undefined || !(preprocOutput.scene instanceof LOGI.Scene) ||
+                    preprocOutput.camera === undefined || !(preprocOutput.camera instanceof LOGI.Camera)) {
                     console.error("Render pass " + i + " has invalid preprocess output!");
                     return;
                 }
 
                 // Render to specified target
-                if (renderPass.target === M3D.RenderPass.SCREEN) {
+                if (renderPass.target === LOGI.RenderPass.SCREEN) {
                     // RENDER TO SCREEN
                     // Set requested viewport
                     this._renderer.updateViewport(viewportRP.width, viewportRP.height);
@@ -136,7 +136,7 @@ M3D.RenderQueue = class {
                     // Render to screen
                     this._renderer.render(preprocOutput.scene, preprocOutput.camera);
                 }
-                else if (renderPass.target === M3D.RenderPass.TEXTURE) {
+                else if (renderPass.target === LOGI.RenderPass.TEXTURE) {
                     // RENDER TO TEXTURE
                     // Setup render target as the render pass specifies
                     this._setupRenderTarget(renderPass);
@@ -149,11 +149,11 @@ M3D.RenderQueue = class {
                     return;
                 }
             }
-            else if (renderPass.type === M3D.RenderPass.TEXTURE_MERGE) {
+            else if (renderPass.type === LOGI.RenderPass.TEXTURE_MERGE) {
                 // This is a texture merging render pass
 
                 // Validate preprocess output
-                if (preprocOutput.material === undefined || !(preprocOutput.material instanceof M3D.CustomShaderMaterial) ||
+                if (preprocOutput.material === undefined || !(preprocOutput.material instanceof LOGI.CustomShaderMaterial) ||
                     preprocOutput.textures === undefined || !Array.isArray(preprocOutput.textures)) {
                     console.error("Render pass " + i + " has invalid preprocess output!");
                     return;
@@ -171,7 +171,7 @@ M3D.RenderQueue = class {
                 this._textureMergeQuad.material = preprocOutput.material;
 
                 // Render to specified target
-                if (renderPass.target === M3D.RenderPass.SCREEN) {
+                if (renderPass.target === LOGI.RenderPass.SCREEN) {
                     // RENDER TO SCREEN
                     // Set requested viewport
                     this._renderer.updateViewport(viewportRP.width, viewportRP.height);
@@ -179,7 +179,7 @@ M3D.RenderQueue = class {
                     // Render to screen
                     this._renderer.render(this._textureMergeScene, this._textureMergeCamera);
                 }
-                else if (renderPass.target === M3D.RenderPass.TEXTURE) {
+                else if (renderPass.target === LOGI.RenderPass.TEXTURE) {
                     // RENDER TO TEXTURE
                     // Setup render target as the render pass specifies
                     this._setupRenderTarget(renderPass);
@@ -220,7 +220,7 @@ M3D.RenderQueue = class {
     setRenderQueue(queue) {
         // Validate the given queue
         for (let i = 0; i < queue.length; i++) {
-            if (!(queue[i] instanceof M3D.RenderPass)) {
+            if (!(queue[i] instanceof LOGI.RenderPass)) {
                 console.error("Given render queue contains invalid elements!");
                 return;
             }
@@ -237,11 +237,11 @@ M3D.RenderQueue = class {
     }
 
     /**
-     * Adds new M3D.RenderPass to the end of the queue
+     * Adds new LOGI.RenderPass to the end of the queue
      */
     pushRenderPass(renderPass) {
         // Validate renderPass
-        if (!(renderPass instanceof M3D.RenderPass)) {
+        if (!(renderPass instanceof LOGI.RenderPass)) {
             console.error("Given argument is not a RenderPass!");
             return;
         }

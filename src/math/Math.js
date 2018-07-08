@@ -2,7 +2,7 @@
  * Created by Primoz Lavric on 07-Mar-17.
  */
 
-M3D.Math = class {
+LOGI.Math = class {
 
     /**
      * Computes a bounding sphere for the given set of spheres.

@@ -2,14 +2,14 @@
  * Created by Primoz on 23. 07. 2016.
  */
 
-M3D.Quad = class extends M3D.Mesh {
+LOGI.Quad = class extends LOGI.Mesh {
     constructor(xy0, xy1, material, geometry) {
 
         if (geometry === undefined) {
-            var geometry = new M3D.Geometry();
+            var geometry = new LOGI.Geometry();
 
             // Quad vertices
-            geometry.vertices = M3D.Float32Attribute(
+            geometry.vertices = LOGI.Float32Attribute(
                 [
                     xy0.x, xy1.y, 0,
                     xy1.x, xy0.y, 0,
@@ -18,7 +18,7 @@ M3D.Quad = class extends M3D.Mesh {
                 ], 3
             );
 
-            geometry.vertColor = M3D.Float32Attribute(
+            geometry.vertColor = LOGI.Float32Attribute(
                 [
                     1, 1, 1, 1,
                     1, 1, 1, 1,
@@ -27,7 +27,7 @@ M3D.Quad = class extends M3D.Mesh {
                 ], 4
             );
 
-            geometry.uv = M3D.Float32Attribute(
+            geometry.uv = LOGI.Float32Attribute(
                 [
                     0, 0,
                     1, 1,
@@ -37,11 +37,11 @@ M3D.Quad = class extends M3D.Mesh {
             );
 
             // Quad triangle vertices
-            geometry.indices = M3D.Uint32Attribute([0, 1, 2, 0, 3, 1], 1);
+            geometry.indices = LOGI.Uint32Attribute([0, 1, 2, 0, 3, 1], 1);
             geometry.computeVertexNormals();
         }
 
-        // Super M3D.Mesh
+        // Super LOGI.Mesh
         super(geometry, material);
 
         this._xy0 = xy0;
@@ -62,7 +62,7 @@ M3D.Quad = class extends M3D.Mesh {
 
     static fromJson(data, geometry, material) {
         // Create mesh object
-        var quad = new M3D.Quad(data.xy0, data.xy1, material, geometry);
+        var quad = new LOGI.Quad(data.xy0, data.xy1, material, geometry);
 
         // Import Object3D parameters
         quad = super.fromJson(data, undefined, undefined, quad);

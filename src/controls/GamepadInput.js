@@ -7,7 +7,7 @@ const gamepadIDRegex = /Vendor:\s+(.*)\s+Product:\s+(.*)\)/;
 const MINVEC = new THREE.Vector3(-1, -1, -1);
 const MAXVEC = new THREE.Vector3(1, 1, 1);
 
-M3D.GamepadInput = class {
+LOGI.GamepadInput = class {
 
     constructor(enforcer) {
         // Do not allow singleton duplicates
@@ -149,11 +149,11 @@ M3D.GamepadInput = class {
 
     static get instance() {
         if (!this[singleton]) {
-            this[singleton] = new M3D.GamepadInput(singletonEnforcer);
+            this[singleton] = new LOGI.GamepadInput(singletonEnforcer);
         }
 
         return this[singleton];
     }
 };
 
-M3D.GamepadInput.instance;
+LOGI.GamepadInput.instance;

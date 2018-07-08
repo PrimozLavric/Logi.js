@@ -2,7 +2,7 @@
  * Created by Primoz on 28.4.2016.
  */
 
-M3D.MeshRenderer = class extends M3D.Renderer {
+LOGI.MeshRenderer = class extends LOGI.Renderer {
 
     constructor(canvas, gl_version) {
         // Call abstract Renderer constructor
@@ -98,7 +98,7 @@ M3D.MeshRenderer = class extends M3D.Renderer {
             this._setup_material_settings(objects[i].material);
 
             // Draw wireframe instead of the planes
-            if (objects[i] instanceof M3D.Line) {
+            if (objects[i] instanceof LOGI.Line) {
                 this._gl.drawArrays(this._gl.LINES, 0, vertices.count());
             }
             else if (objects[i].geometry.drawWireframe) {
@@ -124,7 +124,7 @@ M3D.MeshRenderer = class extends M3D.Renderer {
         let customAttributes;
 
         // If material is a type of CustomShaderMaterial it may contain its own definition of attributes
-        if (object.material instanceof M3D.CustomShaderMaterial) {
+        if (object.material instanceof LOGI.CustomShaderMaterial) {
             customAttributes = object.material._attributes;
         }
 
@@ -217,7 +217,7 @@ M3D.MeshRenderer = class extends M3D.Renderer {
     // TODO: Better naming of the uniforms is needed in order to avoid string usage.
     _setup_material_uniforms(material, uniformSetter) {
         // Setup custom user uniforms (in case of CustomShaderMaterial)
-        if (material instanceof M3D.CustomShaderMaterial) {
+        if (material instanceof LOGI.CustomShaderMaterial) {
             let customUniforms = material._uniforms;
 
             // Set all of the custom uniforms if they are defined within the shader
@@ -257,14 +257,14 @@ M3D.MeshRenderer = class extends M3D.Renderer {
     _setup_material_settings(material) {
 
         // Determine the type of face culling
-        if (material.side === M3D.FRONT_AND_BACK_SIDE) {
+        if (material.side === LOGI.FRONT_AND_BACK_SIDE) {
             this._gl.disable(this._gl.CULL_FACE);
         }
-        else if (material.side === M3D.FRONT_SIDE) {
+        else if (material.side === LOGI.FRONT_SIDE) {
             this._gl.enable(this._gl.CULL_FACE);
             this._gl.cullFace(this._gl.BACK);
         }
-        else if (material.side === M3D.BACK_SIDE) {
+        else if (material.side === LOGI.BACK_SIDE) {
             this._gl.enable(this._gl.CULL_FACE);
             this._gl.cullFace(this._gl.FRONT);
         }
@@ -272,22 +272,22 @@ M3D.MeshRenderer = class extends M3D.Renderer {
         // If depth testing is not enabled set depth function to always pass
         if (material.depthTest) {
             switch (material.depthFunc) {
-                case M3D.FUNC_LEQUAL:
+                case LOGI.FUNC_LEQUAL:
                     this._gl.depthFunc(this._gl.LEQUAL);
                     break;
-                case M3D.FUNC_LESS:
+                case LOGI.FUNC_LESS:
                     this._gl.depthFunc(this._gl.LESS);
                     break;
-                case M3D.FUNC_GEQUAL:
+                case LOGI.FUNC_GEQUAL:
                     this._gl.depthFunc(this._gl.GEQUAL);
                     break;
-                case M3D.FUNC_GREATER:
+                case LOGI.FUNC_GREATER:
                     this._gl.depthFunc(this._gl.GREATER);
                     break;
-                case M3D.FUNC_EQUAL:
+                case LOGI.FUNC_EQUAL:
                     this._gl.depthFunc(this._gl.EQUAL);
                     break;
-                case M3D.FUNC_NOTEQUAL:
+                case LOGI.FUNC_NOTEQUAL:
                     this._gl.depthFunc(this._gl.NOTEQUAL);
                     break;
             }
@@ -353,11 +353,11 @@ M3D.MeshRenderer = class extends M3D.Renderer {
             return;
 
         // If the object is light push it to light cache array
-        if (object instanceof M3D.Light) {
+        if (object instanceof LOGI.Light) {
             this._lights.push(object);
         }
         // If the object is mesh and it's visible. Update it's attributes.
-        else if (object instanceof M3D.Mesh) {
+        else if (object instanceof LOGI.Mesh) {
 
             // Frustum culling
             if (object.frustumCulled === false || this._isObjectVisible(object)) {
@@ -400,7 +400,7 @@ M3D.MeshRenderer = class extends M3D.Renderer {
             }
         }
         // Scene is only an abstract representation
-        else if (!(object instanceof M3D.Scene) && !(object instanceof M3D.Group)) {
+        else if (!(object instanceof LOGI.Scene) && !(object instanceof LOGI.Group)) {
             console.log("MeshRenderer: Received unsupported object type")
         }
 
@@ -417,7 +417,7 @@ M3D.MeshRenderer = class extends M3D.Renderer {
      * Sets up all of the lights found during the object projections. The lights are summed up into a single lights structure
      * representing all of the lights that affect the scene in the current frame.
      * @param {Array} lights Array of lights that were found during the projection
-     * @param {M3D.Camera} camera Camera observing the scene
+     * @param {LOGI.Camera} camera Camera observing the scene
      */
     _setupLights(lights, camera) {
 
@@ -442,12 +442,12 @@ M3D.MeshRenderer = class extends M3D.Renderer {
             color = light.color;
             intensity = light.intensity;
 
-            if (light instanceof M3D.AmbientLight) {
+            if (light instanceof LOGI.AmbientLight) {
                 r += color.r * intensity;
                 g += color.g * intensity;
                 b += color.b * intensity;
             }
-            else if (light instanceof M3D.DirectionalLight) {
+            else if (light instanceof LOGI.DirectionalLight) {
 
                 let lightProperties = {
                     color: new THREE.Color(),
@@ -460,7 +460,7 @@ M3D.MeshRenderer = class extends M3D.Renderer {
 
                 this._lightsCombined.directional.push(lightProperties);
             }
-            else if (light instanceof M3D.PointLight) {
+            else if (light instanceof LOGI.PointLight) {
 
                 let lightProperties = {
                     color: new THREE.Color(),

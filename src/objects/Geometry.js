@@ -2,7 +2,7 @@
  * Created by Ziga & Primoz on 1.4.2016.
  */
 
-M3D.Geometry = class {
+LOGI.Geometry = class {
 
 	constructor() {
         this._uuid = THREE.Math.generateUUID();
@@ -44,7 +44,7 @@ M3D.Geometry = class {
         }
 
         // Create new buffer geometry for the wireframe
-        this._wireframeIndices = new M3D.BufferAttribute(new Uint32Array(indices), 1);
+        this._wireframeIndices = new LOGI.BufferAttribute(new Uint32Array(indices), 1);
     }
 
     _normalizeNormals() {
@@ -71,7 +71,7 @@ M3D.Geometry = class {
             var positions = this._vertices.array;
 
             if (!this._normals) {
-                this._normals = new M3D.BufferAttribute(new Float32Array(positions.length), 3);
+                this._normals = new LOGI.BufferAttribute(new Float32Array(positions.length), 3);
             }
             else {
                 // reset existing normals to zero
@@ -296,24 +296,24 @@ M3D.Geometry = class {
     }
 
     static fromJson(obj) {
-        var geometry = new M3D.Geometry();
+        var geometry = new LOGI.Geometry();
 
         geometry._uuid = obj._uuid;
 
         if (obj.indices) {
-            geometry._indices = M3D.Uint32Attribute(obj.indices.array, obj.indices.itemSize);
+            geometry._indices = LOGI.Uint32Attribute(obj.indices.array, obj.indices.itemSize);
         }
 
         if (obj.vertices) {
-            geometry._vertices = M3D.Float32Attribute(obj.vertices.array, obj.vertices.itemSize);
+            geometry._vertices = LOGI.Float32Attribute(obj.vertices.array, obj.vertices.itemSize);
         }
 
         if (obj.normals) {
-            geometry._normals = M3D.Float32Attribute(obj.normals.array, obj.normals.itemSize);
+            geometry._normals = LOGI.Float32Attribute(obj.normals.array, obj.normals.itemSize);
         }
 
         if (obj.vertColor) {
-            geometry._vertColor = M3D.Float32Attribute(obj.vertColor.array, obj.vertColor.itemSize);
+            geometry._vertColor = LOGI.Float32Attribute(obj.vertColor.array, obj.vertColor.itemSize);
         }
 
         return geometry;
@@ -324,19 +324,19 @@ M3D.Geometry = class {
         for (var prop in data) {
             switch (prop) {
                 case "indices":
-                    this._indices = M3D.Uint32Attribute(data.indices.array, data.indices.itemSize);
+                    this._indices = LOGI.Uint32Attribute(data.indices.array, data.indices.itemSize);
                     delete data.indices;
                     break;
                 case "vertices":
-                    this._vertices = M3D.Float32Attribute(data.vertices.array, data.vertices.itemSize);
+                    this._vertices = LOGI.Float32Attribute(data.vertices.array, data.vertices.itemSize);
                     delete data.vertices;
                     break;
                 case "normals":
-                    this._normals = M3D.Float32Attribute(data.normals.array, data.normals.itemSize);
+                    this._normals = LOGI.Float32Attribute(data.normals.array, data.normals.itemSize);
                     delete data.normals;
                     break;
                 case "vertColor":
-                    this._vertColor = M3D.Float32Attribute(data.vertColor.array, data.vertColor.itemSize);
+                    this._vertColor = LOGI.Float32Attribute(data.vertColor.array, data.vertColor.itemSize);
                     delete data.vertColor;
                     break;
             }

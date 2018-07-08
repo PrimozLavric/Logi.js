@@ -2,10 +2,10 @@
  * Created by primoz on 18.5.2016.
  */
 
-M3D.Light = class extends M3D.Object3D {
+LOGI.Light = class extends LOGI.Object3D {
 
     constructor(color, intensity) {
-        super(M3D.Object3D);
+        super(LOGI.Object3D);
 
         this.type = "Light";
 
@@ -49,7 +49,7 @@ M3D.Light = class extends M3D.Object3D {
     static fromJson(data, light) {
 
         if (!light) {
-            var light = new M3D.Light(data.color, data.intensity);
+            var light = new LOGI.Light(data.color, data.intensity);
         }
 
         // Object3D fromJson

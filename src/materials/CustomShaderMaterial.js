@@ -2,10 +2,10 @@
  * Created by Primoz on 8. 11. 2016.
  */
 
-M3D.CustomShaderMaterial = class extends M3D.Material {
+LOGI.CustomShaderMaterial = class extends LOGI.Material {
 
     constructor(programName, uniforms = {}, attributes = {}) {
-        super(M3D.Material);
+        super(LOGI.Material);
 
         this.type = "CustomShaderMaterial";
 
@@ -135,7 +135,7 @@ M3D.CustomShaderMaterial = class extends M3D.Material {
         }
 
 
-        return new M3D.MaterialProgramTemplate(this._programName, flags, values);
+        return new LOGI.MaterialProgramTemplate(this._programName, flags, values);
     }
 
     set lights(val) {

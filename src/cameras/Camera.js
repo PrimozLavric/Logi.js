@@ -2,10 +2,10 @@
  * Created by Ziga on 25.3.2016.
  */
 
-M3D.Camera = class extends M3D.Object3D {
+LOGI.Camera = class extends LOGI.Object3D {
 
 	constructor() {
-		super(M3D.Object3D);
+		super(LOGI.Object3D);
 
         this.type = "Camera";
 

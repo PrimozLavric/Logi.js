@@ -2,7 +2,7 @@
  * Created by Ziga on 18.4.2016
  */
 
-M3D.GLProgram = class {
+LOGI.GLProgram = class {
 	
 	constructor (gl) {
 		this._gl = gl;

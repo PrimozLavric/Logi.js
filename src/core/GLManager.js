@@ -3,10 +3,10 @@
  */
 
 // Requested WebGL version
-M3D.WEBGL1 = "gl1";
-M3D.WEBGL2 = "gl2";
+LOGI.WEBGL1 = "gl1";
+LOGI.WEBGL2 = "gl2";
 
-M3D.GLManager = class {
+LOGI.GLManager = class {
 
     /**
      * Creates new WebGL context manager. The context is retrieved from the given canvas.
@@ -18,7 +18,7 @@ M3D.GLManager = class {
         this._gl = null;
         this._glVersion = glVersion;
 
-        var glKeys = (glVersion == M3D.WEBGL1) ? ["webgl", "experimental-webgl"] : ["webgl2", "experimental-webgl2"];
+        var glKeys = (glVersion == LOGI.WEBGL1) ? ["webgl", "experimental-webgl"] : ["webgl2", "experimental-webgl2"];
 
         // Try to fetch GL context
         for (var i = 0; i < glKeys.length; i++) {
@@ -46,9 +46,9 @@ M3D.GLManager = class {
         this._LAST_COLOR_ATTACHMENT = this._gl.COLOR_ATTACHMENT15;
         // endregion
 
-        this._fboManager = new M3D.GLFrameBufferManager(this._gl);
-        this._textureManager = new M3D.GLTextureManager(this._gl);
-        this._attributeManager = new M3D.GLAttributeManager(this._gl);
+        this._fboManager = new LOGI.GLFrameBufferManager(this._gl);
+        this._textureManager = new LOGI.GLTextureManager(this._gl);
+        this._attributeManager = new LOGI.GLAttributeManager(this._gl);
 
         // region Clear values
         this.autoClear = true;
@@ -121,7 +121,7 @@ M3D.GLManager = class {
         }
 
         // CustomShaderMaterial may specify extra attributes
-        if (object.material instanceof M3D.CustomShaderMaterial) {
+        if (object.material instanceof LOGI.CustomShaderMaterial) {
             let customAttributes = object.material._attributes;
 
             // Update GL version of all of the custom attributes
@@ -295,7 +295,7 @@ M3D.GLManager = class {
 
     get glVersion () { return this._glVersion; }
 
-    get cache_programs () { return M3D._ProgramCaching; }
+    get cache_programs () { return LOGI._ProgramCaching; }
 
-    set cache_programs (enable) { M3D._ProgramCaching = enable; }
+    set cache_programs (enable) { LOGI._ProgramCaching = enable; }
 };

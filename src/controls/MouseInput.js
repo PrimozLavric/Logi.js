@@ -2,7 +2,7 @@
  * Created by Primoz Lavric on 22-Mar-17.
  */
 
-M3D.MouseInput = class {
+LOGI.MouseInput = class {
 
     constructor(enforcer) {
         // Do not allow singleton duplicates
@@ -110,7 +110,7 @@ M3D.MouseInput = class {
 
     static get instance() {
         if (!this[singleton]) {
-            this[singleton] = new M3D.MouseInput(singletonEnforcer);
+            this[singleton] = new LOGI.MouseInput(singletonEnforcer);
         }
 
         return this[singleton];

@@ -2,14 +2,14 @@
  * Created by Primoz on 2. 08. 2016.
  */
 
-M3D.Contour = class extends M3D.Mesh {
+LOGI.Contour = class extends LOGI.Mesh {
 
     constructor(xy0, xy1, thickness) {
 
-        var geometry = new M3D.Geometry();
+        var geometry = new LOGI.Geometry();
 
         // Quad vertices
-        geometry.vertices = M3D.Float32Attribute(
+        geometry.vertices = LOGI.Float32Attribute(
             [
                 // Bottom left
                 xy0.x,                xy1.y,                0,
@@ -30,7 +30,7 @@ M3D.Contour = class extends M3D.Mesh {
         );
 
         // Quad triangle vertices
-        geometry.indices = M3D.Uint32Attribute(
+        geometry.indices = LOGI.Uint32Attribute(
             [
                 1, 7, 6,
                 1, 6, 0,
@@ -43,18 +43,18 @@ M3D.Contour = class extends M3D.Mesh {
             ], 1);
         geometry.computeVertexNormals();
 
-        var material = new M3D.MeshBasicMaterial();
+        var material = new LOGI.MeshBasicMaterial();
         material.lights = false;
-        material.side = M3D.FRONT_AND_BACK_SIDE;
+        material.side = LOGI.FRONT_AND_BACK_SIDE;
 
-        // Super M3D.Mesh
+        // Super LOGI.Mesh
         super(geometry, material);
 
         this.type = "Contour";
     }
 
     updateParameters(xy0, xy1, thickness) {
-        this._geometry.vertices = M3D.Float32Attribute(
+        this._geometry.vertices = LOGI.Float32Attribute(
                 [
                     // Bottom left
                     xy0.x,                xy1.y,                0,

@@ -2,7 +2,7 @@
  * Created by Primoz on 19. 06. 2016.
  */
 
-M3D.UpdateListener = class {
+LOGI.UpdateListener = class {
     constructor(onObjectUpdate, onHierarchyUpdate, onMaterialUpdate, onGeometryUpdate) {
         this._onObjectUpdate = (onObjectUpdate) ? onObjectUpdate : function () {};
         this._onHierarchyUpdate = (onHierarchyUpdate) ? onHierarchyUpdate : function () {};

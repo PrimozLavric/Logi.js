@@ -16,7 +16,7 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
 <script src="../libraries/three-math.min.js"></script>
 <script src="lib/jquery.min.js"></script>
 
-<script src="../src/Med3D.js"></script>
+<script src="../src/LOGI.js"></script>
 
 <!-- LOADERS -->
 <script src="../src/loaders/Cache.js"></script>
@@ -98,7 +98,7 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
     var keyboardRotation = {x: 0, y: 0, z: 0, reset: function() { this.x = 0; this.y = 0; this.z = 0; }};
     var keyboardTranslation = {x: 0, y: 0, z: 0, reset: function() { this.x = 0; this.y = 0; this.z = 0; }};
 
-    var keyboardInput = M3D.KeyboardInput.instance;
+    var keyboardInput = LOGI.KeyboardInput.instance;
     keyboardInput.addListener(function (pressedKeys) {
         // ROTATIONS
         if (pressedKeys[65]) {  // A
@@ -203,12 +203,12 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
 <!-- LOADER AND RENDERER INIT -->
 <script>
     // Initialize .obj loader
-    var loadingManager = new M3D.LoadingManager();
-    var objLoader = new M3D.ObjLoader(loadingManager);
-    var imgLoader = new M3D.ImageLoader(loadingManager);
+    var loadingManager = new LOGI.LoadingManager();
+    var objLoader = new LOGI.ObjLoader(loadingManager);
+    var imgLoader = new LOGI.ImageLoader(loadingManager);
 
     // Initialize renderer
-    var renderer = new M3D.MeshRenderer(document.getElementById("canvas"), M3D.WEBGL2);
+    var renderer = new LOGI.MeshRenderer(document.getElementById("canvas"), LOGI.WEBGL2);
     renderer.addShaderLoaderUrls("../src/shaders");
 </script>
 
@@ -260,14 +260,14 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
     function loadObject(callback) {
         objLoader.load("models/nanosuit.obj", function (obj) {
 
-            let suit = new M3D.Group();
+            let suit = new LOGI.Group();
 
             for (let i = 0; i < obj.length; i++) {
                 if (i == 3) {
                     continue;
                 }
 
-                obj[i].material = new M3D.CustomShaderMaterial("deferredGBuffer", {"material.shininess": 16, "material.diffuse": [1, 1, 1]});
+                obj[i].material = new LOGI.CustomShaderMaterial("deferredGBuffer", {"material.shininess": 16, "material.diffuse": [1, 1, 1]});
 
                 let mtl = materialTemplate[obj[i].name];
                 obj[i].material.color = mtl.diffuse;
@@ -275,16 +275,16 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
 
                 imgLoader.load(mtl.diffMapPath, function (I) {
                     // Configure and add texture to material
-                    obj[i].material.addMap(new M3D.Texture(I, M3D.Texture.RepeatWrapping, M3D.Texture.RepeatWrapping,
-                        M3D.Texture.LinearFilter, M3D.Texture.LinearFilter,  M3D.Texture.RGB,  M3D.Texture.RGB, M3D.Texture.UNSIGNED_BYTE));
+                    obj[i].material.addMap(new LOGI.Texture(I, LOGI.Texture.RepeatWrapping, LOGI.Texture.RepeatWrapping,
+                        LOGI.Texture.LinearFilter, LOGI.Texture.LinearFilter,  LOGI.Texture.RGB,  LOGI.Texture.RGB, LOGI.Texture.UNSIGNED_BYTE));
 
                     obj[i].material.addSBFlag("DIFFUSE_TEXTURE");
 
                     if (mtl.specMapPath) {
                         imgLoader.load(mtl.specMapPath, function (I) {
                             // Configure and add texture to material
-                            obj[i].material.addMap(new M3D.Texture(I, M3D.Texture.RepeatWrapping, M3D.Texture.RepeatWrapping,
-                                M3D.Texture.LinearFilter, M3D.Texture.LinearFilter, M3D.Texture.RGB, M3D.Texture.RGB, M3D.Texture.UNSIGNED_BYTE));
+                            obj[i].material.addMap(new LOGI.Texture(I, LOGI.Texture.RepeatWrapping, LOGI.Texture.RepeatWrapping,
+                                LOGI.Texture.LinearFilter, LOGI.Texture.LinearFilter, LOGI.Texture.RGB, LOGI.Texture.RGB, LOGI.Texture.UNSIGNED_BYTE));
 
                             obj[i].material.addSBFlag("SPECULAR_TEXTURE");
                         });
@@ -301,19 +301,19 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
 </script>
 
 <script>
-    var gBufferScene = new M3D.Scene();
-    var gBufferCamera = new M3D.PerspectiveCamera(60, 16/9, 0.1, 1000);
+    var gBufferScene = new LOGI.Scene();
+    var gBufferCamera = new LOGI.PerspectiveCamera(60, 16/9, 0.1, 1000);
     gBufferCamera.position = new THREE.Vector3(77.03, 42.56, 37.52);
     gBufferCamera.rotation = new THREE.Euler(-0.5691, 0.5551, 0.3285, 'XYZ');
 
-    var lightningScene = new M3D.Scene();
-    var lightningQuad = new M3D.Quad(new THREE.Vector2(-1, 1), new THREE.Vector2(1, -1), new M3D.CustomShaderMaterial("deferredLightning"));
+    var lightningScene = new LOGI.Scene();
+    var lightningQuad = new LOGI.Quad(new THREE.Vector2(-1, 1), new THREE.Vector2(1, -1), new LOGI.CustomShaderMaterial("deferredLightning"));
     lightningQuad.frustumCulled = false;
     lightningScene.add(lightningQuad);
 
     // Lights
-    var aLight = new M3D.AmbientLight(new THREE.Color("#555555"), 1);
-    var dLight = new M3D.DirectionalLight(new THREE.Color("#FFFFFF"), 0.5);
+    var aLight = new LOGI.AmbientLight(new THREE.Color("#555555"), 1);
+    var dLight = new LOGI.DirectionalLight(new THREE.Color("#FFFFFF"), 0.5);
     dLight.position = new THREE.Vector3(0, 0.3, 0.7);
 
     lightningScene.add(aLight);
@@ -326,8 +326,8 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
 
     for (var i = 0; i < 4; i++) {
 
-        var pLight = new M3D.PointLight(new THREE.Color(colorsX[i]), 1);
-        var cube = new M3D.Cube(0.5, pLight.color);
+        var pLight = new LOGI.PointLight(new THREE.Color(colorsX[i]), 1);
+        var cube = new LOGI.Cube(0.5, pLight.color);
 
         pLight.position = new THREE.Vector3(Math.random() * 60, 7, -8 - (i * 15));
         cube.position = pLight.position;
@@ -347,8 +347,8 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
 
     for (var i = 0; i < 4; i++) {
 
-        var pLight = new M3D.PointLight(new THREE.Color(colorsZ[i]), 1);
-        var cube = new M3D.Cube(0.5, pLight.color);
+        var pLight = new LOGI.PointLight(new THREE.Color(colorsZ[i]), 1);
+        var cube = new LOGI.Cube(0.5, pLight.color);
 
         pLight.position = new THREE.Vector3(8 + (i * 15), 7, Math.random() * -60);
         cube.position = pLight.position;
@@ -395,7 +395,7 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
     loadObject(callback);
 
 
-    var renderQueue = new M3D.RenderQueue(renderer);
+    var renderQueue = new LOGI.RenderQueue(renderer);
 
     // Initializes render queue
     function renderQueueInit() {
@@ -403,9 +403,9 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
         /**
          * G-BUFFER RENDER PASS
          */
-        var gBufferRenderPass = new M3D.RenderPass(
+        var gBufferRenderPass = new LOGI.RenderPass(
             // Rendering pass type
-            M3D.RenderPass.BASIC,
+            LOGI.RenderPass.BASIC,
             // Initialize function
             function() {},
             // Preprocess function
@@ -413,20 +413,20 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
                 return {scene: gBufferScene, camera: gBufferCamera};
             },
             // Target
-            M3D.RenderPass.TEXTURE,
+            LOGI.RenderPass.TEXTURE,
             {width: 1920, height: 1080},
             "depth",
-            [{id: "diffuse", textureConfig: M3D.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG},
-                {id: "positions", textureConfig: M3D.RenderPass.FLOAT_RGB_TEXTURE_CONFIG},
-                {id: "normals", textureConfig: M3D.RenderPass.FLOAT_RGB_TEXTURE_CONFIG}]
+            [{id: "diffuse", textureConfig: LOGI.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG},
+                {id: "positions", textureConfig: LOGI.RenderPass.FLOAT_RGB_TEXTURE_CONFIG},
+                {id: "normals", textureConfig: LOGI.RenderPass.FLOAT_RGB_TEXTURE_CONFIG}]
         );
 
         /**
          * LIGHTNING RENDER PASS
          */
-        var lightningRenderPass = new M3D.RenderPass(
+        var lightningRenderPass = new LOGI.RenderPass(
             // Rendering pass type
-            M3D.RenderPass.BASIC,
+            LOGI.RenderPass.BASIC,
             // Initialize function
             function(textureMap, additionalData) {
                 // At this point the G-buffer textures should already be present in the texture map
@@ -443,27 +443,27 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
                 return {scene: lightningScene, camera: gBufferCamera};
             },
             // Target
-            M3D.RenderPass.TEXTURE,
+            LOGI.RenderPass.TEXTURE,
             {width: 1920, height: 1080},
             "depth",
-            [{id: "combinedRender", textureConfig: M3D.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG}]
+            [{id: "combinedRender", textureConfig: LOGI.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG}]
         );
 
 
         /**
          * DRAW ON SCREEN RENDER PASS (Partially working)
          */
-        var drawingShaderMaterial = new M3D.CustomShaderMaterial("drawOnTexture");
+        var drawingShaderMaterial = new LOGI.CustomShaderMaterial("drawOnTexture");
         drawingShaderMaterial.ligths = false;
 
-        var drawingRenderPass = new M3D.RenderPass(
-            M3D.RenderPass.TEXTURE_MERGE,
+        var drawingRenderPass = new LOGI.RenderPass(
+            LOGI.RenderPass.TEXTURE_MERGE,
             // Initialize function
             function(textureMap, additionalData) {
-                textureMap['drawingTextureA'] = new M3D.Texture();
-                textureMap['drawingTextureA'].applyConfig(M3D.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG);
-                textureMap['drawingTextureB'] = new M3D.Texture();
-                textureMap['drawingTextureB'].applyConfig(M3D.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG);
+                textureMap['drawingTextureA'] = new LOGI.Texture();
+                textureMap['drawingTextureA'].applyConfig(LOGI.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG);
+                textureMap['drawingTextureB'] = new LOGI.Texture();
+                textureMap['drawingTextureB'].applyConfig(LOGI.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG);
             },
             // Preprocess function
             function (textureMap, additionalData) {
@@ -498,27 +498,27 @@ If there is a lot of lag your GPU might not support WEBGL 2.0 rendering to float
 
                 return {material: drawingShaderMaterial, textures: [textureMap['drawingTextureB']]};
             },
-            M3D.RenderPass.TEXTURE,
+            LOGI.RenderPass.TEXTURE,
             {width: 1920, height: 1080},
             null,
-            [{id: "drawingTextureA", textureConfig: M3D.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG}]
+            [{id: "drawingTextureA", textureConfig: LOGI.RenderPass.DEFAULT_RGBA_TEXTURE_CONFIG}]
         );
 
         /**
          * TEXTURE BLENDING glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
          */
-        var overlayShaderMaterial = new M3D.CustomShaderMaterial("overlayTextures");
+        var overlayShaderMaterial = new LOGI.CustomShaderMaterial("overlayTextures");
         drawingShaderMaterial.ligths = false;
 
-        var overlayRenderPass = new M3D.RenderPass(
-            M3D.RenderPass.TEXTURE_MERGE,
+        var overlayRenderPass = new LOGI.RenderPass(
+            LOGI.RenderPass.TEXTURE_MERGE,
             // Initialize function
             function() {},
             // Preprocess function
             function (textureMap, additionalData) {
                 return {material: overlayShaderMaterial, textures: [textureMap["combinedRender"], textureMap["drawingTextureA"]]};
             },
-            M3D.RenderPass.SCREEN,
+            LOGI.RenderPass.SCREEN,
             {width: 1920, height: 1080}
         );
 

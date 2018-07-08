@@ -2,7 +2,7 @@
  * Created by Primoz on 18.5.2016.
  */
 
-M3D.AmbientLight = class extends M3D.Light {
+LOGI.AmbientLight = class extends LOGI.Light {
 
     constructor (color, intensity) {
         super(color, intensity);
@@ -12,7 +12,7 @@ M3D.AmbientLight = class extends M3D.Light {
 
     static fromJson(data) {
 
-        var light = new M3D.AmbientLight(data.color, data.intensity);
+        var light = new LOGI.AmbientLight(data.color, data.intensity);
 
         // Light fromJson
         light = super.fromJson(data, light);

@@ -2,7 +2,7 @@
  * Created by Primoz Lavric on 21-May-17.
  */
 
-M3D.SocketSubscriber = class {
+LOGI.SocketSubscriber = class {
     constructor(connStateCallback) {
         this._connStateCallback = (connStateCallback != null) ? connStateCallback : null;
 
@@ -36,18 +36,18 @@ M3D.SocketSubscriber = class {
 };
 
 // region SocketSubscriber static
-M3D.SocketSubscriber.CONNECTED = 0;
-M3D.SocketSubscriber.DISCONNECTED = 1;
+LOGI.SocketSubscriber.CONNECTED = 0;
+LOGI.SocketSubscriber.DISCONNECTED = 1;
 // endregion
 
-M3D.SocketManager = class  {
+LOGI.SocketManager = class  {
     constructor(enforcer) {
         if(enforcer != singletonEnforcer) {
             throw "Cannot construct singleton";
         }
 
         this._socket = null;
-        this._settings = M3D.SocketManager.DEFAULT_SETTINGS;
+        this._settings = LOGI.SocketManager.DEFAULT_SETTINGS;
 
         // Subscribers
         this._socketSubscribers = [];
@@ -81,7 +81,7 @@ M3D.SocketManager = class  {
         this._socket.on('connect', function() {
             for (let i = 0; i < self._socketSubscribers.length; i++) {
                 if (self._socketSubscribers[i].onConnectionStateChange != null) {
-                    self._socketSubscribers[i].onConnectionStateChange(M3D.SocketSubscriber.CONNECTED);
+                    self._socketSubscribers[i].onConnectionStateChange(LOGI.SocketSubscriber.CONNECTED);
                 }
             }
         });
@@ -89,7 +89,7 @@ M3D.SocketManager = class  {
         this._socket.on('disconnect', function() {
             for (let i = 0; i < self._socketSubscribers.length; i++) {
                 if (self._socketSubscribers[i].onConnectionStateChange != null) {
-                    self._socketSubscribers[i].onConnectionStateChange(M3D.SocketSubscriber.DISCONNECTED);
+                    self._socketSubscribers[i].onConnectionStateChange(LOGI.SocketSubscriber.DISCONNECTED);
                 }
             }
         });
@@ -133,13 +133,13 @@ M3D.SocketManager = class  {
     // Get socket manager instance
     static get instance() {
         if(!this[singleton]) {
-            this[singleton] = new M3D.SocketManager(singletonEnforcer);
+            this[singleton] = new LOGI.SocketManager(singletonEnforcer);
         }
         return this[singleton];
     }
 };
 
 // region SocketManager static
-M3D.SocketManager.DEFAULT_SETTINGS = {transports: ["websocket", "pooling"], perMessageDeflate: {threshold: 1024}};
+LOGI.SocketManager.DEFAULT_SETTINGS = {transports: ["websocket", "pooling"], perMessageDeflate: {threshold: 1024}};
 //endregion
 

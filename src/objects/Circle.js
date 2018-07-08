@@ -6,7 +6,7 @@
  * Created by Primoz on 23. 07. 2016.
  */
 
-M3D.Circle = class extends M3D.Mesh {
+LOGI.Circle = class extends LOGI.Mesh {
     constructor(radius, n, material, geometry) {
         // Default radius: 1
         var _radius = (radius) ? radius : 1;
@@ -33,18 +33,18 @@ M3D.Circle = class extends M3D.Mesh {
             // Center vertex
             tempVertices.push(0, 0, 0);
 
-            var geometry = new M3D.Geometry();
+            var geometry = new LOGI.Geometry();
 
             // Quad vertices
-            geometry.vertices = M3D.Float32Attribute(tempVertices, 3);
+            geometry.vertices = LOGI.Float32Attribute(tempVertices, 3);
 
 
             // Quad triangle vertices
-            geometry.indices = M3D.Uint32Attribute(tempIndices, 1);
+            geometry.indices = LOGI.Uint32Attribute(tempIndices, 1);
             geometry.computeVertexNormals();
         }
 
-        // Super M3D.Mesh
+        // Super LOGI.Mesh
         super(geometry, material);
 
         this._n = _n;
@@ -70,7 +70,7 @@ M3D.Circle = class extends M3D.Mesh {
 
         verticesColors.push(centerColor.r, centerColor.g, centerColor.b, centerAlpha);
 
-        this._geometry.vertColor = M3D.Float32Attribute(verticesColors, 4);
+        this._geometry.vertColor = LOGI.Float32Attribute(verticesColors, 4);
     }
 
 
@@ -86,7 +86,7 @@ M3D.Circle = class extends M3D.Mesh {
 
     static fromJson(data, geometry, material) {
         // Create mesh object
-        var circle = new M3D.Circle(data.n, data.radius, material, geometry);
+        var circle = new LOGI.Circle(data.n, data.radius, material, geometry);
 
         // Import Object3D parameters
         circle = super.fromJson(data, undefined, undefined, circle);

@@ -3,7 +3,7 @@
  */
 
 // Compatible with THREE.js math functions
-M3D.Spherical = class {
+LOGI.Spherical = class {
 
     constructor(radius, phi, theta) {
         this.radius = ( radius !== undefined ) ? radius : 1.0;

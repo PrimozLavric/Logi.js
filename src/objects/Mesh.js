@@ -2,10 +2,10 @@
  * Created by Primoz on 3.4.2016.
  */
 
-M3D.Mesh = class extends M3D.Object3D {
+LOGI.Mesh = class extends LOGI.Object3D {
 
 	constructor(geometry, material) {
-		super(M3D.Object3D);
+		super(LOGI.Object3D);
 
 		this.type = "Mesh";
 
@@ -14,8 +14,8 @@ M3D.Mesh = class extends M3D.Object3D {
 		this._normalMatrix = new THREE.Matrix3();
 
 		// Each mesh defines geometry and its material
-		this._geometry = geometry !== undefined ? geometry : new M3D.Geometry();
-		this._material = material !== undefined ? material : new M3D.MeshBasicMaterial( { color: Math.random() * 0xffffff } );
+		this._geometry = geometry !== undefined ? geometry : new LOGI.Geometry();
+		this._material = material !== undefined ? material : new LOGI.MeshBasicMaterial( { color: Math.random() * 0xffffff } );
 
 		this.raycast = _raycast;
 	}
@@ -64,7 +64,7 @@ M3D.Mesh = class extends M3D.Object3D {
 	static fromJson(data, geometry, material, object) {
 		// Create mesh object
 		if (!object) {
-			var object = new M3D.Mesh(geometry, material);
+			var object = new LOGI.Mesh(geometry, material);
 		}
 
 		// Import Object3D parameters
@@ -101,11 +101,11 @@ let _raycast = (function () {
         let material = object.material;
 
 		// Check triangle intersection
-		if (material.side === M3D.BackSide) {
+		if (material.side === LOGI.BackSide) {
 			intersect = ray.intersectTriangle(vC, vB, vA, true, intersectionPoint);
 		}
 		else {
-			intersect = ray.intersectTriangle(vA, vB, vC, material.side !== M3D.FRONT_AND_BACK_SIDE, intersectionPoint);
+			intersect = ray.intersectTriangle(vA, vB, vC, material.side !== LOGI.FRONT_AND_BACK_SIDE, intersectionPoint);
 		}
 
 		// Fallback if no intersection

@@ -2,14 +2,14 @@
  * Created by Primoz on 25.4.2016.
  */
 
-M3D.VERTEX_SHADER = "vertex";
-M3D.FRAGMENT_SHADER = "fragment";
+LOGI.VERTEX_SHADER = "vertex";
+LOGI.FRAGMENT_SHADER = "fragment";
 
-M3D.GLProgramManager = class {
+LOGI.GLProgramManager = class {
 
     constructor (gl) {
         this._gl = gl;
-        this._shaderBuilder = new M3D.ShaderBuilder();
+        this._shaderBuilder = new LOGI.ShaderBuilder();
         this._compiledPrograms = {};
     }
 
@@ -19,7 +19,7 @@ M3D.GLProgramManager = class {
      * @returns {boolean} Returns true if the template exists in the shade builder
      */
     isTemplateDownloaded(programID) {
-        return this._shaderBuilder.hasTemplate(programID + M3D.VERTEX_SHADER) && this._shaderBuilder.hasTemplate(programID + M3D.FRAGMENT_SHADER);
+        return this._shaderBuilder.hasTemplate(programID + LOGI.VERTEX_SHADER) && this._shaderBuilder.hasTemplate(programID + LOGI.FRAGMENT_SHADER);
     }
 
     addTemplate(programTemplateSrc) {
@@ -47,7 +47,7 @@ M3D.GLProgramManager = class {
         }
 
         // Create new program
-        compiledProgram = new M3D.GLProgram(this._gl);
+        compiledProgram = new LOGI.GLProgram(this._gl);
 
         // region LIGHTS INIT
         // Add number of lights (so that shader is built with correct light count)
@@ -60,8 +60,8 @@ M3D.GLProgramManager = class {
         // endregion LIGHTS INIT
 
         // Build shader sources
-        let vertexSources = this._shaderBuilder.fetchShader(programTemplate.name + M3D.VERTEX_SHADER, programTemplate.flags, programTemplate.values);
-        let fragmentSources = this._shaderBuilder.fetchShader(programTemplate.name + M3D.FRAGMENT_SHADER, programTemplate.flags, programTemplate.values);
+        let vertexSources = this._shaderBuilder.fetchShader(programTemplate.name + LOGI.VERTEX_SHADER, programTemplate.flags, programTemplate.values);
+        let fragmentSources = this._shaderBuilder.fetchShader(programTemplate.name + LOGI.FRAGMENT_SHADER, programTemplate.flags, programTemplate.values);
 
         // region LIGHTS CLEANUP
         if (numLights === 0) {
@@ -380,7 +380,7 @@ M3D.GLProgramManager = class {
         }
 
         if (this._gl.getShaderInfoLog(shader) !== '') {
-            console.warn( 'M3D.WebGLShader: _gl.getShaderInfoLog()', type === this._gl.VERTEX_SHADER ? 'vertex' : 'fragment', this._gl.getShaderInfoLog(shader));
+            console.warn( 'LOGI.WebGLShader: _gl.getShaderInfoLog()', type === this._gl.VERTEX_SHADER ? 'vertex' : 'fragment', this._gl.getShaderInfoLog(shader));
         }
 
         return shader;
@@ -397,7 +397,7 @@ M3D.GLProgramManager = class {
 
         // If no previous entry exists.. Compile new program
         if (program === undefined) {
-            program = new M3D.GLProgram(this._gl);
+            program = new LOGI.GLProgram(this._gl);
 
             // Cache program
             this._compiledPrograms[programId] = program;

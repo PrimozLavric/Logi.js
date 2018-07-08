@@ -2,7 +2,7 @@
  * Created by Primoz on 1. 08. 2016.
  */
 
-M3D.Raycaster = class {
+LOGI.Raycaster = class {
 
     constructor(origin, direction, near, far) {
 
@@ -15,11 +15,11 @@ M3D.Raycaster = class {
     }
 
     setFromCamera(coords, camera) {
-        if (camera instanceof M3D.PerspectiveCamera) {
+        if (camera instanceof LOGI.PerspectiveCamera) {
             this.ray.origin.setFromMatrixPosition(camera.matrixWorld);
             this.ray.direction.set(coords.x, coords.y, 0.5).unproject(camera).sub(this.ray.origin).normalize();
         }
-        else if (camera instanceof M3D.OrthographicCamera) {
+        else if (camera instanceof LOGI.OrthographicCamera) {
             this.ray.origin.set(coords.x, coords.y, (camera.near + camera.far) / (camera.near - camera.far)).unproject(camera);
             this.ray.direction.set(0, 0, -1).transformDirection(camera.matrixWorld);
         }
@@ -38,7 +38,7 @@ M3D.Raycaster = class {
             var children = object.children;
 
             for (var i = 0; i < children.length; i++) {
-                M3D.Raycaster._intersectObject(children[i], raycaster, intersects, true);
+                LOGI.Raycaster._intersectObject(children[i], raycaster, intersects, true);
             }
         }
     }
@@ -47,7 +47,7 @@ M3D.Raycaster = class {
 
         var intersects = [];
 
-        M3D.Raycaster._intersectObject(object, this, intersects, recursive);
+        LOGI.Raycaster._intersectObject(object, this, intersects, recursive);
 
         // Sort the intersects by distance
         intersects.sort( function(a, b) {return a.distance - b.distance;} );
@@ -65,7 +65,7 @@ M3D.Raycaster = class {
         }
 
         for ( var i = 0; i < objects.length; i ++ ) {
-            M3D.Raycaster._intersectObject(objects[i], this, intersects, recursive);
+            LOGI.Raycaster._intersectObject(objects[i], this, intersects, recursive);
         }
 
         // Sort the intersects by distance

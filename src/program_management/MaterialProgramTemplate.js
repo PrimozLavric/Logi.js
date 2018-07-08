@@ -2,7 +2,7 @@
  * Created by Primoz on 24. 11. 2016.
  */
 
-M3D.MaterialProgramTemplate = class {
+LOGI.MaterialProgramTemplate = class {
 
     constructor(name, flags, values) {
         this.name = name;

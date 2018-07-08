@@ -2,7 +2,7 @@
  * Created by Primoz on 18.5.2016.
  */
 
-M3D.DirectionalLight = class extends M3D.Light {
+LOGI.DirectionalLight = class extends LOGI.Light {
 
     constructor(color, intensity) {
         super(color, intensity);
@@ -19,7 +19,7 @@ M3D.DirectionalLight = class extends M3D.Light {
 
     static fromJson(data) {
 
-        var light = new M3D.DirectionalLight(data.color, data.intensity);
+        var light = new LOGI.DirectionalLight(data.color, data.intensity);
 
         // Light fromJson
         light = super.fromJson(data, light);

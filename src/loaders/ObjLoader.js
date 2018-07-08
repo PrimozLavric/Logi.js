@@ -2,7 +2,7 @@
  * Created by Primoz on 17.3.2016.
  * Source: Three.js
  */
-M3D.ObjLoader = class {
+LOGI.ObjLoader = class {
 
     /**
      * Used for loading the .obj files.
@@ -10,8 +10,8 @@ M3D.ObjLoader = class {
      * @constructor     Creates new OBJLoader object. If the manager is undefined the default LoadingManager will be used.
      * @name OBJLoader
      */
-    constructor (manager = new M3D.LoadingManager()) {
-        this.manager = (manager !== undefined) ? manager : new M3D.LoadingManager();
+    constructor (manager = new LOGI.LoadingManager()) {
+        this.manager = (manager !== undefined) ? manager : new LOGI.LoadingManager();
     }
 
     /**
@@ -24,7 +24,7 @@ M3D.ObjLoader = class {
     load (url, onLoad, onProgress, onError) {
         var scope = this;
 
-        var loader = new M3D.XHRLoader(scope.manager);
+        var loader = new LOGI.XHRLoader(scope.manager);
         loader.setPath(this.path);
         loader.load(url, function (text) {
 
@@ -317,29 +317,29 @@ M3D.ObjLoader = class {
             var geometry = objects[i].geometry;
 
             // Create new buffer geometry
-            var bufferGeometry = new M3D.Geometry();
+            var bufferGeometry = new LOGI.Geometry();
 
             // Add position of vertices
-            bufferGeometry.vertices = new M3D.BufferAttribute(new Float32Array(geometry.vertices), 3);
+            bufferGeometry.vertices = new LOGI.BufferAttribute(new Float32Array(geometry.vertices), 3);
 
             // Check if normals are specified. Otherwise calculate them
             if ( geometry.normals.length > 0 ) {
-                bufferGeometry.normals = new M3D.BufferAttribute(new Float32Array(geometry.normals), 3);
+                bufferGeometry.normals = new LOGI.BufferAttribute(new Float32Array(geometry.normals), 3);
             } else {
                 bufferGeometry.computeVertexNormals();
             }
 
             // If specified add texture uv-s
             if (geometry.uvs.length > 0) {
-                bufferGeometry.uv = new M3D.BufferAttribute(new Float32Array(geometry.uvs), 2);
+                bufferGeometry.uv = new LOGI.BufferAttribute(new Float32Array(geometry.uvs), 2);
             }
 
-            var material = new M3D.MeshBasicMaterial();
+            var material = new LOGI.MeshBasicMaterial();
 
-            material.shading = objects[i].material.smooth ? M3D.SmoothShading : M3D.FlatShading;
+            material.shading = objects[i].material.smooth ? LOGI.SmoothShading : LOGI.FlatShading;
 
             // Create new mesh
-            var mesh = new M3D.Mesh(bufferGeometry, material);
+            var mesh = new LOGI.Mesh(bufferGeometry, material);
             mesh.name = objects[i].name;
 
             meshes.push(mesh);

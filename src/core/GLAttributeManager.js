@@ -1,6 +1,6 @@
 // TODO - Primoz: referenca naj bo v GLManagerju
 
-M3D.GLAttributeManager = class {
+LOGI.GLAttributeManager = class {
     
     /**
      * @param {WebGLRenderingContext} gl WebGL rendering context used for buffer allocation.

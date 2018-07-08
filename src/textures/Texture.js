@@ -4,28 +4,28 @@
 
 
 
-M3D.Texture = class {
+LOGI.Texture = class {
 
 	constructor(image, wrapS, wrapT, minFilter, magFilter, internalFormat, format, type, width = 800, height = 600) {
 		this._uuid = THREE.Math.generateUUID();
 		this.type = "Texture";
 
-		this._image = (image) ? image : M3D.Texture.DefaultImage;
+		this._image = (image) ? image : LOGI.Texture.DefaultImage;
 
 		// Filters
-		this._magFilter = magFilter !== undefined ? magFilter : M3D.Texture.LinearFilter;
-		this._minFilter = minFilter !== undefined ? minFilter : M3D.Texture.LinearFilter;
+		this._magFilter = magFilter !== undefined ? magFilter : LOGI.Texture.LinearFilter;
+		this._minFilter = minFilter !== undefined ? minFilter : LOGI.Texture.LinearFilter;
 
 		// Wrapping
-		this._wrapS = wrapS !== undefined ? wrapS : M3D.Texture.ClampToEdgeWrapping;
-		this._wrapT = wrapT !== undefined ? wrapT : M3D.Texture.ClampToEdgeWrapping;
+		this._wrapS = wrapS !== undefined ? wrapS : LOGI.Texture.ClampToEdgeWrapping;
+		this._wrapT = wrapT !== undefined ? wrapT : LOGI.Texture.ClampToEdgeWrapping;
 
 		// Format
-		this._internalFormat = (internalFormat) ? internalFormat : M3D.Texture.RGBA;
-		this._format = (format) ? format : M3D.Texture.RGBA;
+		this._internalFormat = (internalFormat) ? internalFormat : LOGI.Texture.RGBA;
+		this._format = (format) ? format : LOGI.Texture.RGBA;
 
 		// Type
-		this._type = (type) ? type : M3D.Texture.UNSIGNED_BYTE;
+		this._type = (type) ? type : LOGI.Texture.UNSIGNED_BYTE;
 
 		// Mipmaps
 		this._generateMipmaps = false;
@@ -150,41 +150,41 @@ M3D.Texture = class {
 // region CLASS RELATED CONSTANTS
 
 // STATIC VARIABLES
-M3D.Texture.DefaultImage = null;
+LOGI.Texture.DefaultImage = null;
 
 // FILTERS
-M3D.Texture.NearestFilter = 0;
-M3D.Texture.NearestMipMapNearestFilter = 1;
-M3D.Texture.NearestMipMapLinearFilter = 2;
-M3D.Texture.LinearFilter = 3;
-M3D.Texture.LinearMipMapNearestFilter = 4;
-M3D.Texture.LinearMipMapLinearFilter = 5;
+LOGI.Texture.NearestFilter = 0;
+LOGI.Texture.NearestMipMapNearestFilter = 1;
+LOGI.Texture.NearestMipMapLinearFilter = 2;
+LOGI.Texture.LinearFilter = 3;
+LOGI.Texture.LinearMipMapNearestFilter = 4;
+LOGI.Texture.LinearMipMapLinearFilter = 5;
 
 // FORMAT
-M3D.Texture.ALPHA = 6;
-M3D.Texture.RGB = 7;
-M3D.Texture.RGBA = 8;
-M3D.Texture.LUMINANCE = 9;
-M3D.Texture.LUMINANCE_ALPHA = 10;
-M3D.Texture.DEPTH_COMPONENT = 11;
-M3D.Texture.DEPTH_COMPONENT24 = 12;
-M3D.Texture.RGB16F = 13;
-M3D.Texture.RGB32F = 14;
-M3D.Texture.RGBA16F = 15;
-M3D.Texture.RGBA32F = 16;
+LOGI.Texture.ALPHA = 6;
+LOGI.Texture.RGB = 7;
+LOGI.Texture.RGBA = 8;
+LOGI.Texture.LUMINANCE = 9;
+LOGI.Texture.LUMINANCE_ALPHA = 10;
+LOGI.Texture.DEPTH_COMPONENT = 11;
+LOGI.Texture.DEPTH_COMPONENT24 = 12;
+LOGI.Texture.RGB16F = 13;
+LOGI.Texture.RGB32F = 14;
+LOGI.Texture.RGBA16F = 15;
+LOGI.Texture.RGBA32F = 16;
 
 
 // WRAPPING
-M3D.Texture.RepeatWrapping = 15;
-M3D.Texture.ClampToEdgeWrapping = 16;
-M3D.Texture.MirroredRepeatWrapping = 17;
+LOGI.Texture.RepeatWrapping = 15;
+LOGI.Texture.ClampToEdgeWrapping = 16;
+LOGI.Texture.MirroredRepeatWrapping = 17;
 
 // TYPE
-M3D.Texture.UNSIGNED_BYTE = 18;			// Color (default)
-M3D.Texture.UNSIGNED_SHORT = 19;		// Depth (default)
-M3D.Texture.UNSIGNED_INT = 20;
-M3D.Texture.HALF_FLOAT = 21;
-M3D.Texture.FLOAT = 22;
+LOGI.Texture.UNSIGNED_BYTE = 18;			// Color (default)
+LOGI.Texture.UNSIGNED_SHORT = 19;		// Depth (default)
+LOGI.Texture.UNSIGNED_INT = 20;
+LOGI.Texture.HALF_FLOAT = 21;
+LOGI.Texture.FLOAT = 22;
 
 /** NOTE
  * Only following formats can be added as color attachments

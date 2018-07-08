@@ -2,10 +2,10 @@
  * Created by Primoz on 4.4.2016.
  */
 
-M3D.MeshBasicMaterial = class extends M3D.Material {
+LOGI.MeshBasicMaterial = class extends LOGI.Material {
 
     constructor() {
-        super(M3D.Material);
+        super(LOGI.Material);
 
         this.type = "MeshBasicMaterial";
 
@@ -99,7 +99,7 @@ M3D.MeshBasicMaterial = class extends M3D.Material {
             flags.push("VERTEX_COLORS");
         }
 
-        return new M3D.MaterialProgramTemplate("basic", flags, values);
+        return new LOGI.MaterialProgramTemplate("basic", flags, values);
     }
 
     toJson() {
@@ -112,7 +112,7 @@ M3D.MeshBasicMaterial = class extends M3D.Material {
     }
 
     static fromJson(obj) {
-        var material = new M3D.MeshBasicMaterial();
+        var material = new LOGI.MeshBasicMaterial();
 
         // Material properties
         material = super.fromJson(obj, material);

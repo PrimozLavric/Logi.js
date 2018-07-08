@@ -10,7 +10,7 @@
 <script src="../libraries/three-math.min.js"></script>
 <script src="lib/jquery.min.js"></script>
 
-<script src="../src/Med3D.js"></script>
+<script src="../src/LOGI.js"></script>
 
 <!-- LOADERS -->
 <script src="../src/loaders/Cache.js"></script>
@@ -77,16 +77,16 @@
 
 <script>
     // Initialize renderer
-    let renderer = new M3D.MeshRenderer(document.getElementById("canvas"), M3D.WEBGL2);
+    let renderer = new LOGI.MeshRenderer(document.getElementById("canvas"), LOGI.WEBGL2);
     renderer.clearColor = "#000000ff";
 
-    let scene = new M3D.Scene();
+    let scene = new LOGI.Scene();
 
     // Initialize lights and add them to the scene
-    let aLight = new M3D.AmbientLight(new THREE.Color("#222222"), 1);
-    let dLightA = new M3D.DirectionalLight(new THREE.Color("#00FF00"), 1);
-    let dLightB = new M3D.DirectionalLight(new THREE.Color("#FF0000"), 1);
-    let pLight = new M3D.PointLight(new THREE.Color("#0000FF"), 1);
+    let aLight = new LOGI.AmbientLight(new THREE.Color("#222222"), 1);
+    let dLightA = new LOGI.DirectionalLight(new THREE.Color("#00FF00"), 1);
+    let dLightB = new LOGI.DirectionalLight(new THREE.Color("#FF0000"), 1);
+    let pLight = new LOGI.PointLight(new THREE.Color("#0000FF"), 1);
 
     pLight.position = new THREE.Vector3(0, 0, 200);
     dLightA.position = new THREE.Vector3(-1, 0, 0);
@@ -99,15 +99,15 @@
     scene.add(pLight);
 
     // Camera initialization
-    let camera = new M3D.PerspectiveCamera(1.483, 16/9, 10, 10000);
+    let camera = new LOGI.PerspectiveCamera(1.483, 16/9, 10, 10000);
     camera.position = new THREE.Vector3(0, 0, 20);
 
     // Set path to shader files
     renderer.addShaderLoaderUrls("../src/shaders");
 
     // Initialize object loader and load the objects
-    let manager = new M3D.LoadingManager();
-    let loader = new M3D.ObjLoader(manager);
+    let manager = new LOGI.LoadingManager();
+    let loader = new LOGI.ObjLoader(manager);
 
 
     loader.load("models/salca.obj", function(obj) {
@@ -121,13 +121,13 @@
             // Fetch vertices length * 3
             verticesLength = obj[i].geometry.vertices.array.length;
 
-            displacementBuffer = new M3D.BufferAttribute(new Float32Array(verticesLength), 3);
+            displacementBuffer = new LOGI.BufferAttribute(new Float32Array(verticesLength), 3);
 
             for (let j = 0; j < verticesLength; j++) {
                 displacementBuffer.array[j] = (Math.random() - 0.5) / 20;
             }
 
-            obj[i].material = new M3D.MeshPhongMaterial();
+            obj[i].material = new LOGI.MeshPhongMaterial();
 
             obj[i].geometry.drawWireframe = false;
             scene.add(obj[i]);

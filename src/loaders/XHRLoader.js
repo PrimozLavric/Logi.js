@@ -3,14 +3,14 @@
  * Source: Three.js
  */
 
-M3D.XHRLoader = class {
+LOGI.XHRLoader = class {
 
     /**
      * @param manager   LoadingManager that will act as the loader observer
      * @constructor     Creates new XHRLoader object. If the manager is undefined the default LoadingManager will be used.
      * @name XHRLoader
      */
-    constructor (manager = new M3D.LoadingManager) {
+    constructor (manager = new LOGI.LoadingManager) {
         this.manager = manager;
     }
 
@@ -29,7 +29,7 @@ M3D.XHRLoader = class {
         var scope = this;
 
         // Try to fetch cached file
-        var cached = M3D.Cache.get( url );
+        var cached = LOGI.Cache.get( url );
 
         // If the requested files is cached the result is immediately returned as onLoad parameter or load function
         // result if onLoad is not defined.
@@ -52,7 +52,7 @@ M3D.XHRLoader = class {
             var response = event.target.response;
 
             // Map the url to response in Cache object
-            M3D.Cache.add( url, response );
+            LOGI.Cache.add( url, response );
 
             // Determine if the request was successfully executed and notify the observers
             if ( this.status === 200 || this.status === 0 ) {

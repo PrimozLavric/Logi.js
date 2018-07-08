@@ -2,7 +2,7 @@
  * Created by Primoz on 4. 11. 2016.
  */
 
-M3D.GLFrameBufferManager = class {
+LOGI.GLFrameBufferManager = class {
 
     constructor(gl) {
         this._gl = gl;

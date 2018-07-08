@@ -3,14 +3,14 @@
  */
 
 
-M3D.ShaderBuilder = class {
+LOGI.ShaderBuilder = class {
     constructor() {
-        this._LOGTAG = "M3D.ShaderBuilder: ";
+        this._LOGTAG = "LOGI.ShaderBuilder: ";
 
         /**
          templateName => {
            {shaderName => source},
-           tree: M3D.ShaderBuilder.RootNode
+           tree: LOGI.ShaderBuilder.RootNode
         }
          */
         this._templatesCache = {};
@@ -71,7 +71,7 @@ M3D.ShaderBuilder = class {
         var arrayOfLines = templateSource.match(this._lineReduceRegex);
 
         // Create root node of the template tree
-        var rootNode = new M3D.ShaderBuilder.RootNode();
+        var rootNode = new LOGI.ShaderBuilder.RootNode();
 
         for (var i = 0; i < arrayOfLines.length; i++) {
             // Remove redundant spaces and single line comments
@@ -147,51 +147,51 @@ M3D.ShaderBuilder = class {
 };
 
 
-M3D.ShaderBuilder.STATE_OPENED = 0;
-M3D.ShaderBuilder.STATE_CLOSED = 1;
+LOGI.ShaderBuilder.STATE_OPENED = 0;
+LOGI.ShaderBuilder.STATE_CLOSED = 1;
 
 // region REGEX SECTION
 
 // Matches all available commands (#for, #endfor, #if, #else and #fi)
-M3D.ShaderBuilder.commandRegex = /#for.*|#end.*|#if.*|#else.*|#fi.*/i;
+LOGI.ShaderBuilder.commandRegex = /#for.*|#end.*|#if.*|#else.*|#fi.*/i;
 
 // Matches #for and #if commands
-M3D.ShaderBuilder.nodeStartRegex = /#for.*|#if.*/i;
+LOGI.ShaderBuilder.nodeStartRegex = /#for.*|#if.*/i;
 
 // Matches correctly formed for loop (#FOR variable IN [unsigned integer] TO [unsigned integer])
-M3D.ShaderBuilder.forLoopStartRegex = /#for\s+[a-zA-Z0-9_]*\s+in\s+[a-zA-Z0-9_]*\s+to\s+[a-zA-Z0-9_]*/i;
+LOGI.ShaderBuilder.forLoopStartRegex = /#for\s+[a-zA-Z0-9_]*\s+in\s+[a-zA-Z0-9_]*\s+to\s+[a-zA-Z0-9_]*/i;
 
 // Matches 3 groups of for loop (variable, first u-int and second u-int
-M3D.ShaderBuilder.forLoopVariableRegex = /#for\s+([a-zA-Z0-9_]+)\s+in\s+([a-zA-Z0-9_]+)\s+to\s+([a-zA-Z0-9_]+)/i;
+LOGI.ShaderBuilder.forLoopVariableRegex = /#for\s+([a-zA-Z0-9_]+)\s+in\s+([a-zA-Z0-9_]+)\s+to\s+([a-zA-Z0-9_]+)/i;
 
-M3D.ShaderBuilder.endforRegex = /^#end$/i;
+LOGI.ShaderBuilder.endforRegex = /^#end$/i;
 
 // Matches suffix and prefix spaces
-M3D.ShaderBuilder.prefixSuffixSpaceRegex = /(^\s+|\s+$)/g;
+LOGI.ShaderBuilder.prefixSuffixSpaceRegex = /(^\s+|\s+$)/g;
 
 // Matches #if command
-M3D.ShaderBuilder.ifRegex = /#if.*/i;
+LOGI.ShaderBuilder.ifRegex = /#if.*/i;
 
 // Matches #else if command
-M3D.ShaderBuilder.elseIfRegex = /#else\s+if.*/i;
+LOGI.ShaderBuilder.elseIfRegex = /#else\s+if.*/i;
 
 // Matches #else command
-M3D.ShaderBuilder.elseRegex = /^#else$/i;
+LOGI.ShaderBuilder.elseRegex = /^#else$/i;
 
 // Matches #fi command
-M3D.ShaderBuilder.fiRegex = /^#fi$/i;
+LOGI.ShaderBuilder.fiRegex = /^#fi$/i;
 
 // Matches valid condition shell
-M3D.ShaderBuilder.validConditionShellRegex = /\((?:[a-zA-Z0-9!()\s_]+|&&|\|\|)+\)/i;
+LOGI.ShaderBuilder.validConditionShellRegex = /\((?:[a-zA-Z0-9!()\s_]+|&&|\|\|)+\)/i;
 
 // Matches logical operators || and &&
-M3D.ShaderBuilder.logicalOperatorsRegex = /\&\&|[|]{2}/g;
+LOGI.ShaderBuilder.logicalOperatorsRegex = /\&\&|[|]{2}/g;
 
 // Matcher everything but brackets
-M3D.ShaderBuilder.everythingButBracketsRegex = /[^()!]+/g;
+LOGI.ShaderBuilder.everythingButBracketsRegex = /[^()!]+/g;
 
 // Is a positive integer
-M3D.ShaderBuilder.isPosInt = /0|[1-9][0-9]*/;
+LOGI.ShaderBuilder.isPosInt = /0|[1-9][0-9]*/;
 
 //endregion
 
@@ -199,24 +199,24 @@ M3D.ShaderBuilder.isPosInt = /0|[1-9][0-9]*/;
  * Abstract node class. All nodes should extend this class and implement
  * state and methods like parseLine, build and _createNewSubNode
  */
-M3D.ShaderBuilder.Node = class {
+LOGI.ShaderBuilder.Node = class {
 
     constructor () {
-        this._state = M3D.ShaderBuilder.STATE_OPENED;
+        this._state = LOGI.ShaderBuilder.STATE_OPENED;
     };
 
     /**
-     * Fetches the current state of the node which can either be M3D.ShaderBuilder.STATE_OPENED when the node is still
-     * under construction or M3D.ShaderBuilder.STATE_CLOSED when the node is finished.
+     * Fetches the current state of the node which can either be LOGI.ShaderBuilder.STATE_OPENED when the node is still
+     * under construction or LOGI.ShaderBuilder.STATE_CLOSED when the node is finished.
      *
-     * @returns {number} Can either be M3D.ShaderBuilder.STATE_OPENED or M3D.ShaderBuilder.STATE_CLOSED
+     * @returns {number} Can either be LOGI.ShaderBuilder.STATE_OPENED or LOGI.ShaderBuilder.STATE_CLOSED
      */
     get state () { return this._state; }
 
     /**
      * Sets the current state of the node.
      *
-     * @param {number} value Must either be M3D.ShaderBuilder.STATE_OPENED or M3D.ShaderBuilder.STATE_CLOSED
+     * @param {number} value Must either be LOGI.ShaderBuilder.STATE_OPENED or LOGI.ShaderBuilder.STATE_CLOSED
      */
     set state (value) { this._state = value }
 
@@ -229,36 +229,36 @@ M3D.ShaderBuilder.Node = class {
     parseLine (line) {};
 
     /**
-     * Creates new Node based on the specified line. If the line is M3D.ShaderBuilder command either ConditionNode or LoopNode
+     * Creates new Node based on the specified line. If the line is LOGI.ShaderBuilder command either ConditionNode or LoopNode
      * is created or if the line is normal line of shader code a CodeNode is created.
      *
-     * @param line Line of template code. Could either be M3D.ShaderBuilder command or shader line of code.
-     * @returns {M3D.ShaderBuilder.Node} Created M3D.ShaderBuilder node.
+     * @param line Line of template code. Could either be LOGI.ShaderBuilder command or shader line of code.
+     * @returns {LOGI.ShaderBuilder.Node} Created LOGI.ShaderBuilder node.
      * @private
      */
     _createNewSubNode (line) {
-        if (!M3D.ShaderBuilder.commandRegex.test(line)) {
+        if (!LOGI.ShaderBuilder.commandRegex.test(line)) {
             // Create new code node
-            return new M3D.ShaderBuilder.CodeNode(line);
+            return new LOGI.ShaderBuilder.CodeNode(line);
         }
-        else if (M3D.ShaderBuilder.ifRegex.test(line)) {
+        else if (LOGI.ShaderBuilder.ifRegex.test(line)) {
             // Fetch condition and cutoff
-            var condition = line.substring(3).replace(M3D.ShaderBuilder.prefixSuffixSpaceRegex, '');
+            var condition = line.substring(3).replace(LOGI.ShaderBuilder.prefixSuffixSpaceRegex, '');
 
-            if (!M3D.ShaderBuilder.validConditionShellRegex.test(condition)) {
+            if (!LOGI.ShaderBuilder.validConditionShellRegex.test(condition)) {
                 throw "Badly formed condition";
             }
 
             // Try to evaluate condition
-            M3D.ShaderBuilder.ConditionNode.evaluateCondition(condition, []);
+            LOGI.ShaderBuilder.ConditionNode.evaluateCondition(condition, []);
 
             // Create new condition node
-            return new M3D.ShaderBuilder.ConditionNode(condition);
+            return new LOGI.ShaderBuilder.ConditionNode(condition);
         }
-        else if (M3D.ShaderBuilder.forLoopStartRegex.test(line)) {
+        else if (LOGI.ShaderBuilder.forLoopStartRegex.test(line)) {
 
             // Fetch for loop parameters
-            var groups = M3D.ShaderBuilder.forLoopVariableRegex.exec(line);
+            var groups = LOGI.ShaderBuilder.forLoopVariableRegex.exec(line);
 
             // Check if all of the parameters are given in the foor loop
             if (groups.length != 4) {
@@ -266,7 +266,7 @@ M3D.ShaderBuilder.Node = class {
             }
 
             // Create and return a new loop node
-            return new M3D.ShaderBuilder.LoopNode(groups[1], groups[2], groups[3]);
+            return new LOGI.ShaderBuilder.LoopNode(groups[1], groups[2], groups[3]);
         }
         else {
             throw "Badly formed command";
@@ -292,7 +292,7 @@ M3D.ShaderBuilder.Node = class {
 /**
  * Creates new RootNode. This node should be used as root of the tree of the nodes.
  */
-M3D.ShaderBuilder.RootNode = class extends M3D.ShaderBuilder.Node {
+LOGI.ShaderBuilder.RootNode = class extends LOGI.ShaderBuilder.Node {
 
     constructor () {
         super();
@@ -313,12 +313,12 @@ M3D.ShaderBuilder.RootNode = class extends M3D.ShaderBuilder.Node {
             /**
              This is written in expanded form for easier debugging.
              */
-            if (lastNode instanceof M3D.ShaderBuilder.CodeNode) {
+            if (lastNode instanceof LOGI.ShaderBuilder.CodeNode) {
                 // Last node is type of CodeNode
 
                 // Check if the next statement is command
-                if (M3D.ShaderBuilder.commandRegex.test(line)) {
-                    if (M3D.ShaderBuilder.nodeStartRegex.test(line)) {
+                if (LOGI.ShaderBuilder.commandRegex.test(line)) {
+                    if (LOGI.ShaderBuilder.nodeStartRegex.test(line)) {
                         // If the current line is a node start command, create appropriate node
                         this._subNodes.push(this._createNewSubNode(line));
                     }
@@ -334,7 +334,7 @@ M3D.ShaderBuilder.RootNode = class extends M3D.ShaderBuilder.Node {
             }
             else {
                 // Pass the line of code to the current last node if opened. If not create a new node
-                if (lastNode.state === M3D.ShaderBuilder.STATE_OPENED) {
+                if (lastNode.state === LOGI.ShaderBuilder.STATE_OPENED) {
                     lastNode.parseLine(line);
                 }
                 else {
@@ -396,7 +396,7 @@ M3D.ShaderBuilder.RootNode = class extends M3D.ShaderBuilder.Node {
 /**
  * Code Node is used for the shader code blocks that have no # commands in them (actual shader code)
  */
-M3D.ShaderBuilder.CodeNode = class extends M3D.ShaderBuilder.Node {
+LOGI.ShaderBuilder.CodeNode = class extends LOGI.ShaderBuilder.Node {
 
     /**
      * Creates ne Code Node
@@ -406,7 +406,7 @@ M3D.ShaderBuilder.CodeNode = class extends M3D.ShaderBuilder.Node {
         super();
         this._code = line + "\n";
         // Code node should always be closed since it does not contain any sub nodes
-        this._state = M3D.ShaderBuilder.STATE_CLOSED;
+        this._state = LOGI.ShaderBuilder.STATE_CLOSED;
     }
 
     /**
@@ -430,7 +430,7 @@ M3D.ShaderBuilder.CodeNode = class extends M3D.ShaderBuilder.Node {
     }
 };
 
-M3D.ShaderBuilder.ConditionNode = class extends M3D.ShaderBuilder.Node {
+LOGI.ShaderBuilder.ConditionNode = class extends LOGI.ShaderBuilder.Node {
 
     constructor (condition) {
         super();
@@ -479,8 +479,8 @@ M3D.ShaderBuilder.ConditionNode = class extends M3D.ShaderBuilder.Node {
         // SET REMAINING FLAGS TO FALSE
 
         // Fetch condition values and operators sequence
-        var condValues = condition.split(M3D.ShaderBuilder.logicalOperatorsRegex);
-        var condOperators = condition.match(M3D.ShaderBuilder.logicalOperatorsRegex);
+        var condValues = condition.split(LOGI.ShaderBuilder.logicalOperatorsRegex);
+        var condOperators = condition.match(LOGI.ShaderBuilder.logicalOperatorsRegex);
 
         // Match returns null if no match
         if (condOperators == null) {
@@ -494,11 +494,11 @@ M3D.ShaderBuilder.ConditionNode = class extends M3D.ShaderBuilder.Node {
 
         // Replace unset flags
         for (var i = 0; i < condValues.length; i++) {
-            var value = condValues[i].match(M3D.ShaderBuilder.everythingButBracketsRegex)[0].replace(M3D.ShaderBuilder.prefixSuffixSpaceRegex, '');
+            var value = condValues[i].match(LOGI.ShaderBuilder.everythingButBracketsRegex)[0].replace(LOGI.ShaderBuilder.prefixSuffixSpaceRegex, '');
 
             // If the value is not true
             if (value !== 'true') {
-                condValues[i] = condValues[i].replace(M3D.ShaderBuilder.everythingButBracketsRegex, 'false');
+                condValues[i] = condValues[i].replace(LOGI.ShaderBuilder.everythingButBracketsRegex, 'false');
             }
         }
 
@@ -540,53 +540,53 @@ M3D.ShaderBuilder.ConditionNode = class extends M3D.ShaderBuilder.Node {
             var lastNode = subNodes[subNodes.length - 1];
 
             // If the last node is opened forward the line
-            if (lastNode.state === M3D.ShaderBuilder.STATE_OPENED) {
+            if (lastNode.state === LOGI.ShaderBuilder.STATE_OPENED) {
                 lastNode.parseLine(line);
             }
             else {
                 // Check if the given line is a command
-                if (M3D.ShaderBuilder.commandRegex.test(line)) {
+                if (LOGI.ShaderBuilder.commandRegex.test(line)) {
 
                     // Check if the command is node open command
-                    if (M3D.ShaderBuilder.nodeStartRegex.test(line)) {
+                    if (LOGI.ShaderBuilder.nodeStartRegex.test(line)) {
                         subNodes.push(this._createNewSubNode(line));
                     }
                     // Check if the command is else if command
-                    else if (M3D.ShaderBuilder.elseIfRegex.test(line)) {
+                    else if (LOGI.ShaderBuilder.elseIfRegex.test(line)) {
                         // If the else sub nodes are already defined this is an illegal else if
                         if (this._else_subNodes !== null) {
                             throw "UnexpectedElseIfCondition"
                         }
 
                         // Fetch condition and trim spaces
-                        var condition = line.substring(8).replace(M3D.ShaderBuilder.prefixSuffixSpaceRegex, '');
+                        var condition = line.substring(8).replace(LOGI.ShaderBuilder.prefixSuffixSpaceRegex, '');
 
                         // Check if the condition is correctly enclosed
-                        if (!M3D.ShaderBuilder.validConditionShellRegex.test(condition)) {
+                        if (!LOGI.ShaderBuilder.validConditionShellRegex.test(condition)) {
                             throw "BadlyFormedCondition";
                         }
 
                         // Try to evaluate condition
-                        M3D.ShaderBuilder.ConditionNode.evaluateCondition(condition, []);
+                        LOGI.ShaderBuilder.ConditionNode.evaluateCondition(condition, []);
 
                         // Add new else if
                         this._elseif_conditions.push(condition);
                         this._elseif_subNodesList.push([]);
                     }
                     // Check if the command is else command
-                    else if (M3D.ShaderBuilder.elseRegex.test(line)) {
+                    else if (LOGI.ShaderBuilder.elseRegex.test(line)) {
                         // Else command
                         this._else_subNodes = [];
                     }
                     // If the finish command is passed and the last node is closed
-                    else if (M3D.ShaderBuilder.fiRegex.test(line) && lastNode._state === M3D.ShaderBuilder.STATE_CLOSED) {
-                        this._state = M3D.ShaderBuilder.STATE_CLOSED;
+                    else if (LOGI.ShaderBuilder.fiRegex.test(line) && lastNode._state === LOGI.ShaderBuilder.STATE_CLOSED) {
+                        this._state = LOGI.ShaderBuilder.STATE_CLOSED;
                     }
                     else {
                         throw "UnexpectedBlockClosure";
                     }
                 }
-                else if (lastNode instanceof M3D.ShaderBuilder.CodeNode) {
+                else if (lastNode instanceof LOGI.ShaderBuilder.CodeNode) {
                     // If the last node is code node and the line is not a command add current line to CodeNode
                     lastNode.parseLine(line);
                 }
@@ -598,8 +598,8 @@ M3D.ShaderBuilder.ConditionNode = class extends M3D.ShaderBuilder.Node {
         }
         else {
             // If the finish command is passed close the Condition Node
-            if (M3D.ShaderBuilder.fiRegex.test(line)) {
-                this._state = M3D.ShaderBuilder.STATE_CLOSED;
+            if (LOGI.ShaderBuilder.fiRegex.test(line)) {
+                this._state = LOGI.ShaderBuilder.STATE_CLOSED;
             }
             else {
                 subNodes.push(this._createNewSubNode(line));
@@ -617,13 +617,13 @@ M3D.ShaderBuilder.ConditionNode = class extends M3D.ShaderBuilder.Node {
         var shaderCode = "";
 
         // Check if the if condition results in true
-        if (M3D.ShaderBuilder.ConditionNode.evaluateCondition(this._if_condition, flags)) {
+        if (LOGI.ShaderBuilder.ConditionNode.evaluateCondition(this._if_condition, flags)) {
             extractionSubNodes = this._if_subNodes;
         }
         else {
             // Check if any else if condition results in true
             for (var i = 0; i < this._elseif_conditions.length; i++) {
-                if (M3D.ShaderBuilder.ConditionNode.evaluateCondition(this._elseif_conditions[i], flags)) {
+                if (LOGI.ShaderBuilder.ConditionNode.evaluateCondition(this._elseif_conditions[i], flags)) {
                     extractionSubNodes = this._elseif_subNodesList[i];
                     break;
                 }
@@ -655,7 +655,7 @@ M3D.ShaderBuilder.ConditionNode = class extends M3D.ShaderBuilder.Node {
      */
     validate() {
         // If the condition node is not closed do not bother looking at subNodes
-        if (this._state !== M3D.ShaderBuilder.STATE_CLOSED) {
+        if (this._state !== LOGI.ShaderBuilder.STATE_CLOSED) {
             return false;
         }
 
@@ -690,7 +690,7 @@ M3D.ShaderBuilder.ConditionNode = class extends M3D.ShaderBuilder.Node {
     }
 };
 
-M3D.ShaderBuilder.LoopNode = class extends M3D.ShaderBuilder.Node {
+LOGI.ShaderBuilder.LoopNode = class extends LOGI.ShaderBuilder.Node {
     constructor (macro, from, to) {
         super();
         this._macro = macro;
@@ -708,18 +708,18 @@ M3D.ShaderBuilder.LoopNode = class extends M3D.ShaderBuilder.Node {
             /**
              This is written in expanded form for easier debugging.
              */
-            if (lastNode instanceof M3D.ShaderBuilder.CodeNode) {
+            if (lastNode instanceof LOGI.ShaderBuilder.CodeNode) {
                 // Last node is type of CodeNode
 
                 // Check if the next statement is a command
-                if (M3D.ShaderBuilder.commandRegex.test(line)) {
-                    if (M3D.ShaderBuilder.nodeStartRegex.test(line)) {
+                if (LOGI.ShaderBuilder.commandRegex.test(line)) {
+                    if (LOGI.ShaderBuilder.nodeStartRegex.test(line)) {
                         // If the current line is a node start command, create appropriate node
                         this._subNodes.push(this._createNewSubNode(line));
                     }
-                    else if (M3D.ShaderBuilder.endforRegex.test(line)) {
+                    else if (LOGI.ShaderBuilder.endforRegex.test(line)) {
                         // If the for loop end command was given set state to closed
-                        this._state = M3D.ShaderBuilder.STATE_CLOSED;
+                        this._state = LOGI.ShaderBuilder.STATE_CLOSED;
                     }
                     else {
                         // Unexpected command
@@ -732,13 +732,13 @@ M3D.ShaderBuilder.LoopNode = class extends M3D.ShaderBuilder.Node {
                 }
             }
             else {
-                if (lastNode.state === M3D.ShaderBuilder.STATE_OPENED) {
+                if (lastNode.state === LOGI.ShaderBuilder.STATE_OPENED) {
                     // Pass the line of code to the current last node if opened. If not create a new node
                     lastNode.parseLine(line);
                 }
-                else if (M3D.ShaderBuilder.endforRegex.test(line)) {
+                else if (LOGI.ShaderBuilder.endforRegex.test(line)) {
                     // If the for loop end command was given set state to closed
-                    this._state = M3D.ShaderBuilder.STATE_CLOSED;
+                    this._state = LOGI.ShaderBuilder.STATE_CLOSED;
                 }
                 else {
                     // Try to create a new node
@@ -747,9 +747,9 @@ M3D.ShaderBuilder.LoopNode = class extends M3D.ShaderBuilder.Node {
             }
         }
         else {
-            if (M3D.ShaderBuilder.endforRegex.test(line)) {
+            if (LOGI.ShaderBuilder.endforRegex.test(line)) {
                 // If the finish command is passed close the Loop Node
-                this._state = M3D.ShaderBuilder.STATE_CLOSED;
+                this._state = LOGI.ShaderBuilder.STATE_CLOSED;
             }
             else {
                 // Node list is empty.. Try to create a new sub-node
@@ -765,7 +765,7 @@ M3D.ShaderBuilder.LoopNode = class extends M3D.ShaderBuilder.Node {
         var toInt;
 
         // Fetch from value
-        if (M3D.ShaderBuilder.isPosInt.test(this._from)) {
+        if (LOGI.ShaderBuilder.isPosInt.test(this._from)) {
             fromInt = parseInt(this._from, 10);
         }
         else {
@@ -778,7 +778,7 @@ M3D.ShaderBuilder.LoopNode = class extends M3D.ShaderBuilder.Node {
         }
 
         // Fetch TO value
-        if (M3D.ShaderBuilder.isPosInt.test(this._to)) {
+        if (LOGI.ShaderBuilder.isPosInt.test(this._to)) {
             toInt = parseInt(this._to, 10);
         }
         else {
@@ -829,7 +829,7 @@ M3D.ShaderBuilder.LoopNode = class extends M3D.ShaderBuilder.Node {
      */
     validate() {
         // If this state is not closed. Do not bother looking at subnodes
-        if (this._state !== M3D.ShaderBuilder.STATE_CLOSED) {
+        if (this._state !== LOGI.ShaderBuilder.STATE_CLOSED) {
             return false;
         }
 

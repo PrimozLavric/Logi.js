@@ -3,10 +3,10 @@
  * Source: three.js
  */
 
-M3D.ImageLoader = class {
+LOGI.ImageLoader = class {
 
 	constructor(manager) {
-		this.manager = manager || new M3D.LoadingManager();
+		this.manager = manager || new LOGI.LoadingManager();
 	}
 
 	load(url, onLoad, onProgress, onError) {
@@ -23,7 +23,7 @@ M3D.ImageLoader = class {
 		this.manager.itemStart(url);
 
 		// Check if the image is already cached
-		var cached = M3D.Cache.get(url);
+		var cached = LOGI.Cache.get(url);
 
 		if (cached !== undefined) {
 			if (onLoad) {
@@ -48,7 +48,7 @@ M3D.ImageLoader = class {
 			scope.manager.itemEnd(url);
 
 			// Cache loaded image
-			M3D.Cache.add(url, this);
+			LOGI.Cache.add(url, this);
 
 			// Return the loaded image
 			if (onLoad !== undefined) {

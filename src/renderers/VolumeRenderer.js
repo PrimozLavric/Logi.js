@@ -6,21 +6,21 @@
 /**
  * @class VolumeRenderer
  */
-M3D.VolumeRenderer = class extends M3D.Renderer {
+LOGI.VolumeRenderer = class extends LOGI.Renderer {
 
     constructor(canvas, gl_version) {
         // Call abstract Renderer constructor
         super(canvas, gl_version);
 
         // region CONSTRUCT QUAD
-        this.quadVtx = new M3D.Float32Attribute([
+        this.quadVtx = new LOGI.Float32Attribute([
             -1, -1, 0,
              1, -1, 0,
              1,  1, 0,
             -1,  1, 0
         ], 3);
-        this.quadIdx = new M3D.Uint32Attribute([0, 1, 2, 0, 2, 3], 1);
-        this.quadUv = new M3D.Float32Attribute([
+        this.quadIdx = new LOGI.Uint32Attribute([0, 1, 2, 0, 2, 3], 1);
+        this.quadUv = new LOGI.Float32Attribute([
             0, 0,
             1, 0,
             1, 1,

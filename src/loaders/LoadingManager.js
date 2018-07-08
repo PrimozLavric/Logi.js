@@ -13,7 +13,7 @@
  *
  */
 
-M3D.LoadingManager = function (onLoad, onProgress, onError) {
+LOGI.LoadingManager = function (onLoad, onProgress, onError) {
     // Store scope for nested functions
     var scope = this;
 

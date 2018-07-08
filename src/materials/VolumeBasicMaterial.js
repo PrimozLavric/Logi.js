@@ -2,10 +2,10 @@
  * Created by lanab on 18-Apr-17.
  */
 
-M3D.VolumeBasicMaterial = class extends M3D.Material {
+LOGI.VolumeBasicMaterial = class extends LOGI.Material {
 
     constructor() {
-        super(M3D.Material);
+        super(LOGI.Material);
 
         this.type = "VolumeBasicMaterial";
 
@@ -94,7 +94,7 @@ M3D.VolumeBasicMaterial = class extends M3D.Material {
             values["NUM_TEX"] = this._maps.length;
         }
 
-        return new M3D.MaterialProgramTemplate("basicVolume", flags, values);
+        return new LOGI.MaterialProgramTemplate("basicVolume", flags, values);
     }
 
     toJson() {
@@ -107,7 +107,7 @@ M3D.VolumeBasicMaterial = class extends M3D.Material {
     }
 
     static fromJson(obj) {
-        var material = new M3D.MeshBasicMaterial();
+        var material = new LOGI.MeshBasicMaterial();
 
         // Material properties
         material = super.fromJson(obj, material);

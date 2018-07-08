@@ -2,7 +2,7 @@
  * Created by Ziga & Primoz on 1.4.2016.
  */
 
-M3D.PerspectiveCamera = class extends M3D.Camera {
+LOGI.PerspectiveCamera = class extends LOGI.Camera {
 
 	/**
 	 * Creates new PerspectiveCamera object.
@@ -14,7 +14,7 @@ M3D.PerspectiveCamera = class extends M3D.Camera {
 	 * @extends Camera
 	 */
 	constructor(fov, aspect, near, far) {
-		super(M3D.Camera);
+		super(LOGI.Camera);
 
 		this.type = "PerspectiveCamera";
 
@@ -106,7 +106,7 @@ M3D.PerspectiveCamera = class extends M3D.Camera {
 
 	static fromJson(data, aspect) {
 		// Create new object with the given camera parameters
-		var camera = new M3D.PerspectiveCamera(data.fov, aspect, data.near, data.far);
+		var camera = new LOGI.PerspectiveCamera(data.fov, aspect, data.near, data.far);
 
 		// Import underlying Object3D parameters
 		return super.fromJson(data, camera);

@@ -2,9 +2,9 @@
  * Created by Primoz on 23. 07. 2016.
  */
 
-M3D.OrthographicCamera = class extends M3D.Camera {
+LOGI.OrthographicCamera = class extends LOGI.Camera {
     constructor(left, right, top, bottom, near, far) {
-        super(M3D.Camera);
+        super(LOGI.Camera);
 
         this.type = "OrthographicCamera";
 
@@ -51,7 +51,7 @@ M3D.OrthographicCamera = class extends M3D.Camera {
 
     static fromJson(data) {
         // Create new object with the given camera parameters
-        var camera = new M3D.OrthographicCamera(data.left, data.right, data.top, data.bottom, data.near, data.far);
+        var camera = new LOGI.OrthographicCamera(data.left, data.right, data.top, data.bottom, data.near, data.far);
 
         // Import underlying Object3D parameters
         return super.fromJson(data, camera);

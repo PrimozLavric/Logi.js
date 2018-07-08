@@ -2,7 +2,7 @@
  * Created by Primoz on 18. 06. 2016.
  */
 
-M3D.SceneSubscriberListener = class {
+LOGI.SceneSubscriberListener = class {
     constructor(onConnected, onTerminated, onNewObject) {
         this.onConnected = (onConnected) ? onConnected : function() {};
         this.onTerminated = (onTerminated) ? onTerminated : function() {};
@@ -10,7 +10,7 @@ M3D.SceneSubscriberListener = class {
     }
 };
 
-M3D.SceneSubscriber = class {
+LOGI.SceneSubscriber = class {
 
     constructor(username, updateListener) {
         let self = this;
@@ -61,20 +61,20 @@ M3D.SceneSubscriber = class {
             }
         };
 
-        this._cameraChangeListener = new M3D.UpdateListener(onCameraUpdate);
+        this._cameraChangeListener = new LOGI.UpdateListener(onCameraUpdate);
 
         this._subscriberOnCameraChange = null;
         // endregion
 
         //region SOCKET.IO
-        this._socketManager = M3D.SocketManager.instance;
+        this._socketManager = LOGI.SocketManager.instance;
 
         if (!this._socketManager.isConnectionOpen) {
             this._socketManager.connectToServer();
         }
 
         // Create new socket subscriber and enroll it into the socket manager
-        this._socketSubscriber = new M3D.SocketSubscriber();
+        this._socketSubscriber = new LOGI.SocketSubscriber();
         this._socketManager.addSocketSubscriber(this._socketSubscriber);
 
         /**
@@ -92,14 +92,14 @@ M3D.SceneSubscriber = class {
                 let materialsJson = response.initialData.materials;
 
                 // Import the received data, returns reference to all root objects (data may contain more hierarchies or parentless objects)
-                self._rootObjects = M3D.Object3D.importHierarchy(objectsJson, geometriesJson, materialsJson);
+                self._rootObjects = LOGI.Object3D.importHierarchy(objectsJson, geometriesJson, materialsJson);
 
                 // Map the scene hierarchy to more easily update the data
                 for (let i = 0; i < self._rootObjects.length; i++) {
                     self._rootObjects[i].traverse(function (object) {
                         self._objects[object._uuid] = object;
 
-                        if (object instanceof M3D.Mesh) {
+                        if (object instanceof LOGI.Mesh) {
                             // Meshes also own geometry and material
                             self._geometries[object.geometry._uuid] = object.geometry;
                             self._materials[object.material._uuid] = object.material;
@@ -126,7 +126,7 @@ M3D.SceneSubscriber = class {
 
                             // Create cameras
                             for (let uuid in userCamerasList) {
-                                self._cameras[userId].list.push(M3D[userCamerasList[uuid].type].fromJson(userCamerasList[uuid]));
+                                self._cameras[userId].list.push(LOGI[userCamerasList[uuid].type].fromJson(userCamerasList[uuid]));
                             }
                         }
 
@@ -172,7 +172,7 @@ M3D.SceneSubscriber = class {
                 // Construct newly received geometries if any
                 if (newObjects.geometries) {
                     for (let uuid in newObjects.geometries) {
-                        self._geometries[uuid] = M3D.Geometry.fromJson(newObjects.geometries[uuid]);
+                        self._geometries[uuid] = LOGI.Geometry.fromJson(newObjects.geometries[uuid]);
                     }
                 }
 
@@ -181,17 +181,17 @@ M3D.SceneSubscriber = class {
                     for (let uuid in newObjects.materials) {
                         switch (newObjects.materials[uuid].type) {
                             case "MeshPhongMaterial":
-                                self._materials[uuid] = M3D.MeshPhongMaterial.fromJson(newObjects.materials[uuid]);
+                                self._materials[uuid] = LOGI.MeshPhongMaterial.fromJson(newObjects.materials[uuid]);
                                 break;
                             case "MeshBasicMaterial":
-                                self._materials[uuid] = M3D.MeshBasicMaterial.fromJson(newObjects.materials[uuid]);
+                                self._materials[uuid] = LOGI.MeshBasicMaterial.fromJson(newObjects.materials[uuid]);
                                 break;
                             case "Material":
-                                self._materials[uuid] = M3D.Material.fromJson(newObjects.materials[uuid]);
+                                self._materials[uuid] = LOGI.Material.fromJson(newObjects.materials[uuid]);
                                 break;
                             default:
                                 console.warn("Unknown type of material received. Trying to parse a Material object.");
-                                self._materials[uuid] = M3D.Material.fromJson(newObjects.materials[uuid]);
+                                self._materials[uuid] = LOGI.Material.fromJson(newObjects.materials[uuid]);
                                 break;
                         }
                     }
@@ -207,7 +207,7 @@ M3D.SceneSubscriber = class {
                             // If the received new object is mesh add geometry and material to it
                             geometry = self._geometries[object.geometryUuid];
                             material = self._materials[object.materialUuid];
-                            rebuiltObject = M3D.Mesh.fromJson(object, geometry, material);
+                            rebuiltObject = LOGI.Mesh.fromJson(object, geometry, material);
 
                             // Save reference to geometry and material
                             self._geometries[geometry._uuid] = geometry;
@@ -215,7 +215,7 @@ M3D.SceneSubscriber = class {
                         }
                         else {
                             // Standard object rebuilding
-                            rebuiltObject = M3D[object.type].fromJson(object);
+                            rebuiltObject = LOGI[object.type].fromJson(object);
                         }
 
                         // Save reference to object
@@ -354,7 +354,7 @@ M3D.SceneSubscriber = class {
 
                 // Create cameras
                 for (let uuid in userCamerasList) {
-                    let newCamera = M3D[userCamerasList[uuid].type].fromJson(userCamerasList[uuid]);
+                    let newCamera = LOGI[userCamerasList[uuid].type].fromJson(userCamerasList[uuid]);
                     self._cameras[request.userId].list.push(newCamera);
 
                     // Notify subscriber

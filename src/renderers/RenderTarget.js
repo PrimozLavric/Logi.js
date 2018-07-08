@@ -2,7 +2,7 @@
  * Created by Primoz on 25.7.2016.
  */
 
-M3D.RenderTarget = class {
+LOGI.RenderTarget = class {
 
     constructor(width, height) {
         this._uuid = THREE.Math.generateUUID();
@@ -46,8 +46,8 @@ M3D.RenderTarget = class {
     }
 
     addDepthTexture() {
-        this._depthTexture = new M3D.Texture(undefined, M3D.Texture.ClampToEdgeWrapping, M3D.Texture.ClampToEdgeWrapping,
-            M3D.Texture.NearestFilter, M3D.Texture.NearestFilter, M3D.Texture.DEPTH_COMPONENT24, M3D.Texture.DEPTH_COMPONENT, M3D.Texture.UNSIGNED_INT, this._width, this._height);
+        this._depthTexture = new LOGI.Texture(undefined, LOGI.Texture.ClampToEdgeWrapping, LOGI.Texture.ClampToEdgeWrapping,
+            LOGI.Texture.NearestFilter, LOGI.Texture.NearestFilter, LOGI.Texture.DEPTH_COMPONENT24, LOGI.Texture.DEPTH_COMPONENT, LOGI.Texture.UNSIGNED_INT, this._width, this._height);
     }
 
     rmDepthTexture() {
