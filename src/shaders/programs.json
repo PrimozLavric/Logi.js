@@ -1,0 +1,81 @@
+{
+    "phong": {
+        "description": "Default gl2 program used for testing.",
+        "shaders": {
+            "vertex": "phong/phong_template.vert",
+            "fragment": "phong/phong_template.frag"
+        }
+    },
+
+    "basic": {
+        "description": "Default gl2 program used for testing.",
+        "shaders": {
+            "vertex": "basic/basic_template.vert",
+            "fragment": "basic/basic_template.frag"
+        }
+    },
+
+    "custom_testProgram": {
+        "description": "Default gl2 program used for testing.",
+        "shaders": {
+            "vertex": "custom/testProgram_template.vert",
+            "fragment": "custom/testProgram_template.frag"
+        }
+    },
+
+    "custom_deferredGBuffer": {
+        "description": "Default gl2 program used for testing.",
+        "shaders": {
+            "vertex": "custom/deferred/gBuffer_template.vert",
+            "fragment": "custom/deferred/gBuffer_template.frag"
+        }
+    },
+
+    "custom_deferredLightning": {
+        "description": "Default gl2 program used for testing.",
+        "shaders": {
+            "vertex": "custom/deferred/lightning_template.vert",
+            "fragment": "custom/deferred/lightning_template.frag"
+        }
+    },
+
+    "custom_drawOnTexture": {
+        "description": "Default gl2 program used for testing.",
+        "shaders": {
+            "vertex": "custom/drawToTexture/drawing_template.vert",
+            "fragment": "custom/drawToTexture/drawing_template.frag"
+        }
+    },
+
+    "custom_redrawOnTexture": {
+        "description": "Default gl2 program used for testing.",
+        "shaders": {
+            "vertex": "custom/drawToTexture/redrawing_template.vert",
+            "fragment": "custom/drawToTexture/redrawing_template.frag"
+        }
+    },
+
+    "custom_copyTexture": {
+        "description": "Default gl2 program used for testing.",
+        "shaders": {
+            "vertex": "custom/drawToTexture/copy_texture_template.vert",
+            "fragment": "custom/drawToTexture/copy_texture_template.frag"
+        }
+    },
+
+    "custom_overlayTextures": {
+        "description": "Default gl2 program used for testing.",
+        "shaders": {
+            "vertex": "custom/overlay/overlayTextures.vert",
+            "fragment": "custom/overlay/overlayTextures.frag"
+        }
+    },
+
+    "basicVolume": {
+        "description": "Default volume.",
+        "shaders": {
+            "vertex": "volume/volume_basic_template.vert",
+            "fragment": "volume/volume_basic_template.frag"
+        }
+    }
+}
